@@ -1,0 +1,21 @@
+@import "var";
+
+@function px2rem($px) {
+  @return $px / 100 + rem;
+}
+
+@mixin position($type: absolute, $top: 0, $right: 0, $bottom: 0, $left: 0) {
+  position: $type;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+@mixin transition(
+  $property: color,
+  $duration: 120ms,
+  $timing-function: ease-in-out
+) {
+  transition: $property $duration $timing-function;
+}

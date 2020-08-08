@@ -1,6 +1,6 @@
 <template>
   <div class="components">
-    <h1>Metasoft Webapp App Components</h1>
+    <h1>Metasoft Webapp Components</h1>
     <h2>Icon</h2>
     <div class="content"></div>
   </div>

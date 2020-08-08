@@ -1,4 +1,4 @@
-export default function (fn, delay) {
+export default function(fn, delay) {
   let timer;
   return () => {
     const context = this;

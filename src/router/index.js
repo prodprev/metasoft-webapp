@@ -1,15 +1,20 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import index from "@/views/index";
+import Index from "@/views/index";
+import Home from "@/views/home";
 
 Vue.use(VueRouter);
 
 const routeOptions = [
+  {
+    path: "/",
+    name: "index",
+    component: Index,
+    children: [{ path: "", component: Home }],
+  },
+  { path: "/login", name: "login" },
   { path: "/components", name: "common/components" },
   { path: "/nopermission", name: "common/no-permission" },
-  { path: "/", redirect: "/1" },
-  { path: "/:page", name: "index", component: index },
-  { path: "/:page/history", name: "history" },
   { path: "*", name: "common/not-found" },
 ];
 
@@ -26,6 +31,22 @@ const router = new VueRouter({
         component: () =>
           import(/* webpackChunkName: "[request]" */ `@/views/${route.name}`),
       };
+    }
+
+    if (route.children) {
+      route.children = route.children.map((route) => {
+        if (!route.component) {
+          route = {
+            ...route,
+            component: () =>
+              import(
+                /* webpackChunkName: "[request]" */ `@/views/${route.name}`
+              ),
+          };
+        }
+
+        return route;
+      });
     }
 
     return route;

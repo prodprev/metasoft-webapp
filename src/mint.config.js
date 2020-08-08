@@ -1,34 +1,14 @@
-import {
-  Icon,
-  Divider,
-  Table,
-  TableColumn,
-  Pagination,
-  Button,
-  Input,
-  InputNumber,
-  Dialog,
-  Select,
-  Option,
-} from "element-ui";
+import { Toast } from "mint-ui";
 
 const components = {
-  Icon,
-  Divider,
-  Table,
-  TableColumn,
-  Pagination,
-  Button,
-  Input,
-  InputNumber,
-  Dialog,
-  Select,
-  Option,
+  Toast,
 };
 
 const componentsHandler = {
   install(Vue) {
-    Object.keys(components).forEach((key) => Vue.use(components[key]));
+    Object.keys(components).forEach((key) =>
+      Vue.component(components[key]["name"], components[key])
+    );
   },
 };
 

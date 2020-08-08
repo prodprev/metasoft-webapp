@@ -1,28 +1,22 @@
-$--color-blue: #2a79ff; // theme blue
-$--color-blue-deep: #0c70c7;
-$--color-blue-light: #d4e1f8;
-$--color-green: #16b142;
-$--color-green-light: #dbfce5;
-$--color-red: #ef5350; // error | danger
-$--color-red-light: #fdc4c3;
-$--color-orange: #f5a623; // warning
-$--color-gray: #dbdbdb; // border (input | button | header border)
-$--color-gray-100: #f7f7f7; // background
-$--color-gray-200: #e8e8e8; // disable button background
-$--color-gray-300: #e0e0e0; // split line
-$--color-gray-400: #cacaca; // node line
-$--color-gray-500: #999; // pipeline | close
-$--color-gray-600: #909399; // placeholder text | disable button text
+$--color-blue: #0074ff; // theme blue
+$--color-green: #4ace92;
+$--color-red: #ff9494;
+$--color-orange: #e4af24;
+$--color-gray: #f4f4f4; // split
+$--color-gray-100: #f7f7f7; // border
+$--color-gray-100: #c8c8c8; // arrow | placeholder | bullte
 $--color-dark: #333;
+$--color-dark-100: #666;
+$--color-dark-200: #999;
 
-$--font-size: 13px;
+$--font-size: 16;
 $--font-pingfang-sc: "PingFang SC";
 $--font-pingfang-medium: "PingFang-Medium";
 $--font-pingfang-bold: "PingFang-Bold";
 $--font-family: $--font-pingfang-sc, Microsoft YaHei, Helvetica Neue, Helvetica,
   Arial, sans-serif;
 
-$--border-radius: 2px;
-
-$--input-width: 200px;
-$--input-height: 31px;
+$--header-height: 45;
+$--footer-height: 50;
+$--border-radius: 8;
+$--input-height: 50;

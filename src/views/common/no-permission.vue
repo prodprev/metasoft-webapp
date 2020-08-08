@@ -6,17 +6,17 @@
 
 <script>
 export default {
-  name: "NoPermission"
+  name: "NoPermission",
 };
 </script>
 
 <style scoped lang="scss">
 @import "../../assets/scss/var";
-@import "../../assets/scss/mixin";
+@import "../../assets/scss/fn";
 
 .no-permission {
   @include position();
-  background-color: $--color-gray-100;
+  background-color: #f6f6fd;
 }
 
 h3 {

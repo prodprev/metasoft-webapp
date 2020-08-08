@@ -1,15 +1,22 @@
 @import "var";
+@import "fn";
 
 #app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   font-family: $--font-family;
-  font-size: $--font-size;
   font-weight: 400;
-  letter-spacing: 0;
+  letter-spacing: px2rem(1);
   color: $--color-dark;
-  background-color: $--color-gray-100;
+  background-color: #f6f6fd;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
 }
 
 * {
@@ -25,7 +32,7 @@ a {
   text-decoration: none;
 
   &:visited {
-    color: $--color-blue-deep;
+    color: $--color-blue;
   }
 }
 
@@ -40,4 +47,44 @@ h2,
 h3,
 h4 {
   margin: 0;
+}
+
+input,
+textarea {
+  width: 100%;
+  border: px2rem(1) solid $--color-gray-100;
+  border-radius: px2rem($--border-radius);
+  outline: none;
+  -webkit-appearance: none;
+  @include transition(border-color);
+
+  &:focus {
+    border-color: $--color-blue !important;
+  }
+}
+
+input {
+  height: px2rem($--input-height);
+  font-size: px2rem($--font-size);
+}
+
+button {
+  width: 100%;
+  height: px2rem($--input-height);
+  border: none;
+  border-radius: px2rem($--border-radius);
+  font-size: px2rem(14);
+  color: #fff;
+  outline: none;
+  -webkit-appearance: none;
+
+  &.primary {
+    background: linear-gradient(318deg, $--color-blue 0%, #469aff 100%);
+    box-shadow: 0 px2rem(8) px2rem(16) 0 rgba(19, 69, 134, 0.15);
+  }
+}
+
+::-webkit-input-placeholder {
+  font-size: px2rem(14);
+  color: $--color-dark-200;
 }
