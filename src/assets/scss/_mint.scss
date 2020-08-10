@@ -1,9 +1,16 @@
+@import "fn";
+
 .mint-toast {
-  padding: 30px !important;
-  border-radius: 12px !important;
+  padding: px2rem(30) !important;
+  border-radius: px2rem(12) !important;
 
   .mint-toast-text {
-    font-size: 20px !important;
+    font-size: px2rem(20) !important;
+    font-family: "PingFangSC-Regular", $--font-family;
+    font-weight: 400;
+    color: #fff;
+    line-height: px2rem(20);
+    letter-spacing: px2rem(1);
     white-space: nowrap;
   }
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="101.599981%" x2="25.4258469%" y2="14.0925212%" id="linearGradient-1">
+            <stop stop-color="#0074FF" offset="0%"></stop>
+            <stop stop-color="#3390FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-319.000000, -49.000000)" fill="url(#linearGradient-1)" fill-rule="nonzero">
+            <path d="M328,58 C330.48625,58 332.5,55.98625 332.5,53.5 C332.5,51.01375 330.48625,49 328,49 C325.51375,49 323.5,51.01375 323.5,53.5 C323.5,55.98625 325.51375,58 328,58 Z M328,60.25 C324.99625,60.25 319,61.7575 319,64.75 L319,67 L337,67 L337,64.75 C337,61.7575 331.00375,60.25 328,60.25 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

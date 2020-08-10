@@ -9,7 +9,7 @@
   font-weight: 400;
   letter-spacing: px2rem(1);
   color: $--color-dark;
-  background-color: #f6f6fd;
+  background: $--background;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -34,6 +34,10 @@ a {
   &:visited {
     color: $--color-blue;
   }
+}
+
+p {
+  margin: 0;
 }
 
 ul,
@@ -75,6 +79,7 @@ button {
   border-radius: px2rem($--border-radius);
   font-size: px2rem(14);
   color: #fff;
+  cursor: pointer;
   outline: none;
   -webkit-appearance: none;
 

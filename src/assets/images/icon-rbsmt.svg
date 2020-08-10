@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="19px" viewBox="0 0 18 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>shop-check</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="首页-工作台" transform="translate(-30.000000, -378.000000)">
+            <g id="编组-16" transform="translate(15.000000, 359.000000)">
+                <g id="shop-check" transform="translate(16.000000, 20.000000)">
+                    <path d="M0,2.00010618 C0,0.895478039 0.894513756,0 1.99406028,0 L14.0059397,0 C15.1072288,0 16,0.890058413 16,2.00010618 L16,17 L14,15.2055556 L12,17 L10,15.2055556 L8,17 L6,15.2055556 L4,17 L2,15.2055556 L0,17 L0,2.00010618 Z" id="Rectangle-59" stroke="#FF3600" stroke-width="2" fill="#FF3600"></path>
+                    <line x1="3" y1="7.5" x2="13" y2="7.5" id="Line-Copy" stroke="#FFFFFF"></line>
+                    <line x1="3" y1="11.5" x2="10" y2="11.5" id="Line-Copy-2" stroke="#FFFFFF"></line>
+                    <line x1="3" y1="3.5" x2="13" y2="3.5" id="Line" stroke="#FFFFFF"></line>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

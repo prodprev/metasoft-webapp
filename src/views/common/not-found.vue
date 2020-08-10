@@ -4,19 +4,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "NotFound",
-};
-</script>
-
 <style scoped lang="scss">
-@import "../../assets/scss/var";
 @import "../../assets/scss/fn";
 
 .not-found {
   @include position();
-  background-color: #f6f6fd;
+  background: $--background;
 }
 
 h3 {
@@ -25,7 +18,8 @@ h3 {
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
-  font-size: 100px;
+  font-size: px2rem(30);
+  font-weight: 700;
   color: $--color-dark;
 }
 </style>

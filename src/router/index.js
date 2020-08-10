@@ -3,14 +3,23 @@ import VueRouter from "vue-router";
 import Index from "@/views/index";
 import Home from "@/views/home";
 
+const originalPush = VueRouter.prototype.push;
+
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err);
+};
+
 Vue.use(VueRouter);
 
 const routeOptions = [
   {
     path: "/",
-    name: "index",
     component: Index,
-    children: [{ path: "", component: Home }],
+    children: [
+      { path: "", name: "home", component: Home, meta: { title: "首页" } },
+      { path: "/apps", name: "apps", meta: { title: "应用" } },
+      { path: "/list", name: "list", meta: { title: "列表展示" } },
+    ],
   },
   { path: "/login", name: "login" },
   { path: "/components", name: "common/components" },

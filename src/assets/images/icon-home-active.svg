@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>Color</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="101.599981%" x2="25.4258469%" y2="14.0925212%" id="linearGradient-1">
+            <stop stop-color="#0074FF" offset="0%"></stop>
+            <stop stop-color="#3390FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon" transform="translate(-37.000000, -49.000000)" fill="url(#linearGradient-1)">
+            <path d="M46.6156,49.2119606 C46.27315,48.932176 45.7408,48.9290455 45.39295,49.2045257 L37.7596211,55.7397536 C37.340094,56.0989292 37,56.8373116 37,57.3927337 L37,65.9274272 C37,66.5288662 37.5688,67 38.2942,67 L42.85,67 C43.3468,67 43.75,66.6493888 43.75,66.2173857 L43.75,61.9130073 L48.25,61.9130073 L48.25,66.2173857 C48.25,66.6493888 48.65275,67 49.15,67 L53.7058,67 C54.4312,67 55,66.5288662 55,65.9274272 L55,57.3927337 C55,56.8389936 54.6609372,56.0998166 54.2411527,55.7404265 L46.6156,49.2119606 Z" id="Color"></path>
+        </g>
+    </g>
+</svg>

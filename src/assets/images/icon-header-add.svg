@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="17px" height="17px" viewBox="0 0 17 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>add-pluss-1</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="列表展示界面" transform="translate(-343.000000, -34.000000)" stroke="#FFFFFF" stroke-width="2">
+            <g id="add-pluss-1" transform="translate(344.000000, 35.000000)">
+                <line x1="0" y1="7.5" x2="15" y2="7.5" id="Line"></line>
+                <line x1="7.5" y1="0" x2="7.5" y2="15" id="Line"></line>
+            </g>
+        </g>
+    </g>
+</svg>

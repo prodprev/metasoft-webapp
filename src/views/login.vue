@@ -20,7 +20,7 @@
       </div>
       <div class="form-group">
         <button class="primary"
-                @click="handleClick">登录</button>
+                @click="handleLogin">登录</button>
       </div>
     </div>
   </div>
@@ -37,7 +37,7 @@ export default {
     };
   },
   methods: {
-    handleClick() {
+    handleLogin() {
       // TODO: this.$api.xxx
       Toast({
         message: '账户或密码错误',
@@ -48,8 +48,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
-@import "../assets/scss/var";
+<style scoped lang="scss">
 @import "../assets/scss/fn";
 
 .login {
@@ -65,6 +64,7 @@ export default {
   display: flex;
   align-items: center;
   font-size: px2rem(12);
+  cursor: pointer;
 
   img {
     width: px2rem(14);
@@ -103,6 +103,7 @@ export default {
 
 .form-group {
   position: relative;
+  display: flex;
 
   img {
     position: absolute;
