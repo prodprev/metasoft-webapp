@@ -1,8 +1,11 @@
 <template>
-  <div class="login">
-    <div class="setting">
-      <img :src="require('../assets/images/icon-gear.svg')" />设置
-    </div>
+  <div class="login"
+       :style="{backgroundImage: `url(${require('../assets/images/login-bg.png')})`}">
+    <router-link :to="{name: 'todo', params: {title: '设置'}}">
+      <div class="setting">
+        <img :src="require('../assets/images/icon-gear.svg')" />设置
+      </div>
+    </router-link>
     <div class="logo"
          :style="{
         backgroundImage: 'url(' + require('../assets/images/logo@2x.png') + ')',
@@ -15,7 +18,8 @@
       </div>
       <div class="form-group">
         <img :src="require('../assets/images/icon-lock.svg')" />
-        <input placeholder="请输入密码"
+        <input type="password"
+               placeholder="请输入密码"
                v-model="password" />
       </div>
       <div class="form-group">
@@ -39,10 +43,15 @@ export default {
   methods: {
     handleLogin() {
       // TODO: this.$api.xxx
-      Toast({
-        message: '账户或密码错误',
-        duration: 3000
-      });
+      
+      if (this.username && this.password) {
+        this.$router.push({path: '/'});
+      } else {
+        Toast({
+          message: '账号或密码错误',
+          duration: 3000
+        });
+      }
     }
   }
 };
@@ -54,6 +63,9 @@ export default {
 .login {
   position: relative;
   height: inherit;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   background-color: #fff;
 }
 
@@ -64,6 +76,7 @@ export default {
   display: flex;
   align-items: center;
   font-size: px2rem(12);
+  color: $--color-dark;
   cursor: pointer;
 
   img {

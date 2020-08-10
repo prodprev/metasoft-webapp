@@ -2,43 +2,39 @@
   <header>
     <div class="wrapper">
       <div class="lt">
-        <div
-          v-if="['list'].includes($route.name)"
-          class="back"
-          :style="{ backgroundImage: backBgImg }"
-        ></div>
+        <div v-if="['list', 'todo'].includes($route.name)"
+             class="back"
+             :style="{ backgroundImage: backBgImg }"
+             @click="$router.go(-1)"></div>
       </div>
-      <div
-        class="md"
-        :class="{ dd: $route.name == 'list', show: dropdownToggle }"
-        @click="handleDropdown"
-      >
+      <div class="md"
+           :class="{ dd: $route.name == 'list', show: dropdownToggle }"
+           @click="handleDropdown">
         {{ $route.meta.title }}
-        <span
-          class="dropdown"
-          :style="{ backgroundImage: dropdownBgImg }"
-        ></span>
+        <span class="dropdown"
+              :style="{ backgroundImage: dropdownBgImg }"></span>
         <ul class="dropdown-selects">
-          <li
-            :key="index"
-            v-for="(item, index) in $store.state.list.dropdownSelects"
-            @click.stop="handleSelect(item)"
-          >
+          <li :key="index"
+              v-for="(item, index) in $store.state.list.dropdownSelects"
+              @click.stop="handleSelect(item)">
             {{ item.name }}
           </li>
         </ul>
       </div>
       <div class="rt">
-        <div
-          v-if="['list'].includes($route.name)"
-          class="add"
-          :style="{ backgroundImage: addBgImg }"
-        ></div>
+        <div v-if="['list'].includes($route.name)"
+             class="add"
+             :style="{ backgroundImage: addBgImg }"></div>
+        <div v-if="['home'].includes($route.name)"
+             class="query"
+             :style="{ backgroundImage: queryBgImg }"></div>
       </div>
     </div>
-    <div v-if="['list'].includes($route.name)" class="wrapper flex-start">
+    <div v-if="['list'].includes($route.name)"
+         class="wrapper flex-start">
       <Search @input="handleInput" />
-      <div class="filter" :style="{ backgroundImage: filterBgImg }"></div>
+      <div class="filter"
+           :style="{ backgroundImage: filterBgImg }"></div>
     </div>
   </header>
 </template>
@@ -56,6 +52,7 @@ export default {
       dropdownBgImg: `url(${require("../../assets/images/icon-header-dropdown.svg")})`,
       addBgImg: `url(${require("../../assets/images/icon-header-add.svg")})`,
       filterBgImg: `url(${require("../../assets/images/icon-search-filter.svg")})`,
+      queryBgImg:`url(${require("../../assets/images/icon-search.svg")})`,
       dropdownToggle: false,
     };
   },
@@ -127,7 +124,8 @@ header {
   .back,
   .dropdown,
   .add,
-  .filter {
+  .filter,
+  .query {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
@@ -149,7 +147,8 @@ header {
     transition: all 120ms ease-in-out;
   }
 
-  .add {
+  .add,
+  .query {
     width: px2rem(17);
     height: px2rem(17);
   }

@@ -1,21 +1,20 @@
 <template>
   <div class="apps">
-    <div
-      class="page-container"
-      :style="{
+    <div class="page-container"
+         :style="{
         width: pageTotal * 100 + 'vw',
         marginLeft: (1 - pageCurrent) * 100 + 'vw',
-      }"
-    >
-      <div class="page" :key="pageNum" v-for="pageNum in pageTotal">
-        <div
-          class="page-item"
-          :key="index"
-          v-for="(item, index) in list.slice(
-            (pageNum - 1) * pageSize,
-            (pageNum - 1) * pageSize + pageSize
-          )"
-        >
+      }">
+      <div class="page"
+           :key="pageNum"
+           v-for="pageNum in pageTotal">
+        <div class="page-item"
+             :key="index"
+             v-for="(item, index) in list.slice(
+                (pageNum - 1) * pageSize,
+                (pageNum - 1) * pageSize + pageSize
+              )"
+             @click="handleClick(item)">
           <Pic :url="item.image" />
           <label>{{ item.name }}</label>
         </div>
@@ -23,12 +22,10 @@
     </div>
     <nav>
       <ul>
-        <li
-          :class="{ active: i == pageCurrent }"
-          :key="i"
-          v-for="i in pageTotal"
-          @click="pageCurrent = i"
-        ></li>
+        <li :class="{ active: i == pageCurrent }"
+            :key="i"
+            v-for="i in pageTotal"
+            @click="pageCurrent = i"></li>
       </ul>
     </nav>
   </div>
@@ -131,6 +128,11 @@ export default {
         });
       }
     },
+    handleClick(item) {
+      this.$log(item);
+
+      this.$router.push({name: 'list', params: {data: item}});
+    }
   },
   created: function() {
     this.init();

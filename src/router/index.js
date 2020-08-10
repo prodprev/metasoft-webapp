@@ -22,6 +22,7 @@ const routeOptions = [
     ],
   },
   { path: "/login", name: "login" },
+  { path: "/todo", name: "todo", meta: { title: "空白页" } }, // TODO:
   { path: "/components", name: "common/components" },
   { path: "/nopermission", name: "common/no-permission" },
   { path: "*", name: "common/not-found" },

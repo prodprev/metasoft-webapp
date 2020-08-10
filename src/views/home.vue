@@ -55,7 +55,7 @@ export default {
     return {
       today: new Date().format("yyyy年MM月dd日"),
       tabActive: "workbench",
-      list: [{num: 23.9, name: "标题名"}, {num: 23900, name: "标题名"}, {num: 239000, name: "标题名"}, {num: 2390000, name: "标题名"}, {num: 23900000, name: "标题名"}, {num: 239000000, name: "标题名"}],
+      list: [{num: 2390, name: "标题名"}, {num: 23900, name: "标题名"}, {num: 239000, name: "标题名"}, {num: 2390000, name: "标题名"}, {num: 23900000, name: "标题名"}, {num: 239000000, name: "标题名"}],
       orderForMonth: "7月订单",
       rbsmtBadge: 2,
       orderBadge: 23
@@ -134,23 +134,25 @@ export default {
       text-align: center;
 
       .num {
+        position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 100%;
 
         i {
-          width: px2rem(6);
-          height: px2rem(6);
+          position: absolute;
+          top: 50%;
+          left: 0;
+          width: px2rem(8);
+          height: px2rem(8);
           margin-right: px2rem(5);
           border: px2rem(2) solid transparent;
           border-radius: 50%;
+          transform: translateY(-50%);
         }
 
         label {
-          max-width: calc(100% - #{px2rem(11)});
-          overflow: hidden;
-          text-overflow: ellipsis;
           white-space: nowrap;
         }
       }

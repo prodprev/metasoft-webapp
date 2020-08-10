@@ -1,12 +1,12 @@
 <template>
   <div class="search">
-    <img :src="require('../assets/images/icon-search-magnifier.svg')" />
-    <input
-      type="text"
-      placeholder="请输入搜索条件"
-      v-model.trim="query"
-      @input="$emit('input', query)"
-    />
+    <form action="javascript:return true;">
+      <img :src="require('../assets/images/icon-search-magnifier.svg')" />
+      <input type="search"
+             placeholder="请输入搜索条件"
+             v-model.trim="query"
+             @input="$emit('input', query)" />
+    </form>
   </div>
 </template>
 
@@ -29,6 +29,10 @@ export default {
   display: inline-flex;
   align-items: center;
   height: px2rem(34);
+
+  form {
+    width: 100%;
+  }
 
   img {
     position: absolute;

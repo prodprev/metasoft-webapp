@@ -44,7 +44,11 @@ export default {
       this.select = newVal;
     },
     "select": function(newVal) {
-      this.$router.push({name: newVal});
+      if (['message', 'me'].includes(newVal)) {
+        this.$router.push({name: 'todo'});
+      } else {
+        this.$router.push({name: newVal});
+      }
     }
   }
 }
