@@ -97,6 +97,11 @@ header {
     }
   }
 
+  .lt,
+  .rt {
+    min-width: px2rem(17);
+  }
+
   .md {
     position: relative;
     display: flex;

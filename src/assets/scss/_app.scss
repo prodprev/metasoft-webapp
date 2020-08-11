@@ -88,7 +88,8 @@ button {
   }
 }
 
-::-webkit-input-placeholder {
+input::-webkit-input-placeholder,
+textarea::-webkit-input-placeholder {
   font-size: px2rem(14);
   color: $--color-dark-200;
 }

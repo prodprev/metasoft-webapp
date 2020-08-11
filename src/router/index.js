@@ -17,6 +17,7 @@ const routeOptions = [
     component: Index,
     children: [
       { path: "", name: "home", component: Home, meta: { title: "首页" } },
+      { path: "/create", name: "create", meta: { title: "新建" } },
       { path: "/apps", name: "apps", meta: { title: "应用" } },
       { path: "/list", name: "list", meta: { title: "列表展示" } },
     ],
