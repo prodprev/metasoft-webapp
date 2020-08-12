@@ -2,14 +2,14 @@
   <header>
     <div class="wrapper">
       <div class="lt">
-        <div v-if="['list', 'todo'].includes($route.name)"
+        <div v-if="['list', 'todo', 'create'].includes($route.name)"
              class="back"
              :style="{ backgroundImage: backBgImg }"
              @click="$router.go(-1)"></div>
       </div>
       <div class="md"
            :class="{ dd: $route.name == 'list', show: dropdownToggle }"
-           @click="handleDropdown">
+           @click="$route.name == 'list' && handleDropdown">
         {{ $route.meta.title }}
         <span class="dropdown"
               :style="{ backgroundImage: dropdownBgImg }"></span>

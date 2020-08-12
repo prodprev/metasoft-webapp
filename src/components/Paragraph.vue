@@ -101,7 +101,7 @@ h3 {
 input,
 textarea {
   width: 100%;
-  border: px2rem(1) solid $--color-gray-100;
+  border: px2rem(2) solid $--color-gray-100;
   border-radius: px2rem($--border-radius);
   outline: none;
   -webkit-appearance: none;

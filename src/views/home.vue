@@ -43,7 +43,9 @@
       </div>
       <div class="card-body"></div>
     </div>
-    <div class="add"></div>
+    <div class="add">
+      <router-link to="/create"></router-link>
+    </div>
   </div>
 </template>
 
@@ -270,6 +272,12 @@ export default {
 
   &::after {
     transform: translate(-50%) rotate(90deg);
+  }
+
+  a {
+    display: block;
+    width: inherit;
+    height: inherit;
   }
 }
 </style>
