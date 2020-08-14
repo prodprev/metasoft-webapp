@@ -3,10 +3,10 @@
       :class="{'align-right': align == 'right', 'align-left': align == 'left'}">
     <li :key="index"
         v-for="(item, index) in list"
-        @click="handleCheck(item)">
+        @click="$emit('change', item)">
       <label class="name">{{item.name}}</label>
       <label class="check"
-             :class="{active: item.value == selected}"
+             :class="{active: item.value == checked.value}"
              :style="{backgroundImage: `url(${require('../assets/images/icon-check.svg')})`}"></label>
     </li>
   </ul>
@@ -15,7 +15,15 @@
 <script>
 export default {
   name: "Checklist",
+  model: {
+    prop: "checked",
+    event: "change"
+  },
   props: {
+    checked: {
+      type: Object,
+      default: () => {}
+    },
     list: {
       type: Array,
       default: () => []
@@ -23,16 +31,6 @@ export default {
     align: {
       type: String,
       default: "left"
-    }
-  },
-  data() {
-    return {
-      selected: ""
-    }
-  },
-  methods: {
-    handleCheck(item) {
-      this.selected = item.value;
     }
   }
 }
@@ -93,9 +91,5 @@ ul.checklist {
       margin-left: px2rem(30);
     }
   }
-}
-
-input + .checklist {
-  margin-top: px2rem(6);
 }
 </style>

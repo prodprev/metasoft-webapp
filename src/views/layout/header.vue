@@ -9,7 +9,7 @@
       </div>
       <div class="md"
            :class="{ dd: $route.name == 'list', show: dropdownToggle }"
-           @click="$route.name == 'list' && handleDropdown">
+           @click="handleDropdown">
         {{ $route.meta.title }}
         <span class="dropdown"
               :style="{ backgroundImage: dropdownBgImg }"></span>
@@ -56,8 +56,15 @@ export default {
       dropdownToggle: false,
     };
   },
+  watch: {
+    "$route.name": function() {
+      this.dropdownToggle = false;
+    }
+  },
   methods: {
     handleDropdown() {
+      if (this.$route.name != 'list') return;
+
       this.dropdownToggle = !this.dropdownToggle;
     },
     handleSelect(item) {
