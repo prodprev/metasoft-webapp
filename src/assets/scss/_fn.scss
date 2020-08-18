@@ -12,6 +12,35 @@
   left: $left;
 }
 
+@mixin pagefix() {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: $--background;
+}
+
+@mixin txtEll($num: 1) {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $num;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+}
+
+@mixin bgImg($url, $size: contain) {
+  @if $url != "" {
+    background-image: url($url);
+  }
+
+  background-size: $size;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 @mixin transition(
   $property: color,
   $duration: 120ms,

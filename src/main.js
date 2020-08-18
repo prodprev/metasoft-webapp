@@ -1,4 +1,5 @@
 import Vue from "vue";
+import Vuerify from "vuerify";
 import App from "@/App.vue";
 import router from "@/router";
 import store from "@/store";
@@ -13,6 +14,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$api = api;
 Vue.prototype.$log = console.log;
 
+Vue.use(Vuerify);
 Vue.use(mintComponents);
 
 new Vue({

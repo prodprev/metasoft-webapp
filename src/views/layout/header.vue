@@ -2,47 +2,81 @@
   <header>
     <div class="wrapper">
       <div class="lt">
-        <div v-if="['list', 'todo', 'create'].includes($route.name)"
-             class="back"
-             :style="{ backgroundImage: backBgImg }"
-             @click="$router.go(-1)"></div>
+        <div
+          v-if="
+            [
+              'create',
+              'list',
+              'detail',
+              'setting',
+              'workbench',
+              'todo',
+            ].includes($route.name)
+          "
+          class="back"
+          :style="{ backgroundImage: backBgImg }"
+          @click="handleBack"
+        ></div>
       </div>
-      <div class="md"
-           :class="{ dd: $route.name == 'list', show: dropdownToggle }"
-           @click="handleDropdown">
+      <div
+        class="md"
+        :class="{ dd: $route.name == 'list', show: dropdownToggle }"
+        @click="handleDropdown"
+      >
         {{ $route.meta.title }}
-        <span class="dropdown"
-              :style="{ backgroundImage: dropdownBgImg }"></span>
-        <ul class="dropdown-selects">
-          <li :key="index"
+        <span
+          class="dropdown"
+          :style="{ backgroundImage: dropdownBgImg }"
+        ></span>
+        <transition name="slide-fade">
+          <ul v-if="dropdownToggle" class="dropdown-selects">
+            <li
+              :key="index"
               v-for="(item, index) in $store.state.list.dropdownSelects"
-              @click.stop="handleSelect(item)">
-            {{ item.name }}
-          </li>
-        </ul>
+              @click.stop="handleSelect(item)"
+            >
+              {{ item.name }}
+            </li>
+          </ul>
+        </transition>
       </div>
       <div class="rt">
-        <div v-if="['list'].includes($route.name)"
-             class="add"
-             :style="{ backgroundImage: addBgImg }"></div>
-        <div v-if="['home'].includes($route.name)"
-             class="query"
-             :style="{ backgroundImage: queryBgImg }"></div>
+        <div
+          v-if="['list'].includes($route.name)"
+          class="add"
+          :style="{ backgroundImage: addBgImg }"
+        ></div>
+        <div
+          v-if="['home'].includes($route.name)"
+          class="query"
+          :style="{ backgroundImage: queryBgImg }"
+        ></div>
+        <div
+          v-if="['create'].includes($route.name)"
+          class="submit"
+          :style="{ backgroundImage: submitBgImg }"
+        ></div>
+        <div
+          v-if="['detail'].includes($route.name)"
+          class="dots"
+          @click="handleActionsheet"
+          :style="{ backgroundImage: dotsBgImg }"
+        ></div>
       </div>
     </div>
-    <div v-if="['list'].includes($route.name)"
-         class="wrapper flex-start">
+    <div v-if="['list'].includes($route.name)" class="wrapper flex-start">
       <Search @input="handleInput" />
-      <div class="filter"
-           :style="{ backgroundImage: filterBgImg }"></div>
+      <div class="filter" :style="{ backgroundImage: filterBgImg }"></div>
     </div>
   </header>
 </template>
 
 <script>
 import Search from "@/components/Search";
+import routerMixin from "@/mixins/router.mixin";
 
 export default {
+  mixins: [routerMixin],
   components: {
     Search,
   },
@@ -52,29 +86,48 @@ export default {
       dropdownBgImg: `url(${require("../../assets/images/icon-header-dropdown.svg")})`,
       addBgImg: `url(${require("../../assets/images/icon-header-add.svg")})`,
       filterBgImg: `url(${require("../../assets/images/icon-search-filter.svg")})`,
-      queryBgImg:`url(${require("../../assets/images/icon-search.svg")})`,
+      queryBgImg: `url(${require("../../assets/images/icon-search.svg")})`,
+      submitBgImg: `url(${require("../../assets/images/icon-check.svg")})`,
+      dotsBgImg: `url(${require("../../assets/images/icon-h-dots.svg")})`,
       dropdownToggle: false,
+      actions: [
+        { name: "编辑", action: "edit" },
+        { name: "关闭", action: "close" },
+        { name: "复制", action: "copy" },
+        { name: "测试", action: "test" },
+      ],
     };
   },
   watch: {
     "$route.name": function() {
       this.dropdownToggle = false;
-    }
+    },
   },
   methods: {
+    handleBack() {
+      const isNoAni = this.$route.name == "todo" || this.$route.path == "/todo";
+
+      this.wxRouterLinkMixin(-1, isNoAni);
+    },
     handleDropdown() {
-      if (this.$route.name != 'list') return;
+      if (this.$route.name != "list") return;
 
       this.dropdownToggle = !this.dropdownToggle;
     },
     handleSelect(item) {
       this.dropdownToggle = false;
 
-      this.commit(item);
+      this.commit("setHeaderDropdownSelect", item);
     },
     handleInput() {},
-    commit(payload) {
-      this.$store.commit("setHeaderDropdownSelect", payload);
+    handleActionsheet() {
+      this.commit("setActionsheet", {
+        show: true,
+        list: this.actions,
+      });
+    },
+    commit(mutation, payload) {
+      this.$store.commit(`${mutation}`, payload);
     },
   },
 };
@@ -94,6 +147,7 @@ header {
   );
 
   .wrapper {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -110,9 +164,13 @@ header {
   }
 
   .md {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     display: flex;
     align-items: center;
+    z-index: 1;
 
     &.dd {
       cursor: pointer;
@@ -126,10 +184,6 @@ header {
       .dropdown {
         transform: rotate(-180deg);
       }
-
-      .dropdown-selects {
-        display: block;
-      }
     }
   }
 
@@ -137,10 +191,13 @@ header {
   .dropdown,
   .add,
   .filter,
-  .query {
+  .query,
+  .submit,
+  .dots {
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;
+    cursor: pointer;
   }
 
   .back {
@@ -156,13 +213,35 @@ header {
     width: px2rem(10);
     height: px2rem(5);
     margin-left: px2rem(6);
-    transition: all 120ms ease-in-out;
+    @include transition(all);
   }
 
   .add,
   .query {
     width: px2rem(17);
     height: px2rem(17);
+  }
+
+  .submit {
+    width: px2rem(20);
+    height: px2rem(15);
+    background-size: cover;
+  }
+
+  .dots {
+    position: relative;
+    height: px2rem(4);
+    background-size: cover;
+
+    &::after {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: px2rem(45);
+      height: px2rem(45);
+      content: "";
+    }
   }
 
   .filter {
@@ -177,7 +256,6 @@ header {
   }
 
   .dropdown-selects {
-    display: none;
     position: absolute;
     top: 0;
     left: 50%;
@@ -214,5 +292,16 @@ header {
       transform: translateX(-50%);
     }
   }
+}
+
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  @include transition(all);
+}
+
+.slide-fade-enter,
+.slide-fade-leave-to {
+  top: px2rem(-10);
+  opacity: 0;
 }
 </style>

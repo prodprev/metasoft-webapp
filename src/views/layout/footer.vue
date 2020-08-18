@@ -20,8 +20,8 @@
 <script>
 const homeIcon = require("../../assets/images/icon-home.svg");
 const homeIconActive = require("../../assets/images/icon-home-active.svg");
-const messageIcon = require("../../assets/images/icon-bell.svg");
-const messageIconActive = require("../../assets/images/icon-bell-active.svg");
+const newsIcon = require("../../assets/images/icon-bell.svg");
+const newsIconActive = require("../../assets/images/icon-bell-active.svg");
 const appIcon = require("../../assets/images/icon-hierarchy.svg");
 const appIconActive = require("../../assets/images/icon-hierarchy-active.svg");
 const meIcon = require("../../assets/images/icon-menu-user.svg");
@@ -32,10 +32,10 @@ export default {
     return {
       menus: [
         {name: "首页", code: "home", icon: homeIcon, iconActive: homeIconActive},
-        {name: "消息", code: "message", icon: messageIcon, iconActive: messageIconActive, badgeCount: 12},
+        {name: "消息", code: "news", icon: newsIcon, iconActive: newsIconActive, badgeCount: 12},
         {name: "应用", code: "apps", icon: appIcon, iconActive: appIconActive},
         {name: "我的", code: "me", icon: meIcon, iconActive: meIconActive}
-        ],
+      ],
       select: this.$route.name || "home"
     }
   },
@@ -44,11 +44,7 @@ export default {
       this.select = newVal;
     },
     "select": function(newVal) {
-      if (['message', 'me'].includes(newVal)) {
-        this.$router.push({name: 'todo'});
-      } else {
-        this.$router.push({name: newVal});
-      }
+      this.$router.push({name: newVal});
     }
   }
 }

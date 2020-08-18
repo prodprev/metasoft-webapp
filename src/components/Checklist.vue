@@ -3,10 +3,10 @@
       :class="{'align-right': align == 'right', 'align-left': align == 'left'}">
     <li :key="index"
         v-for="(item, index) in list"
-        @click="$emit('change', item)">
+        @click="handleClick(item)">
       <label class="name">{{item.name}}</label>
       <label class="check"
-             :class="{active: item.value == checked.value}"
+             :class="{active: multi ? checked.find(o => o.value == item.value) : checked.value == item.value}"
              :style="{backgroundImage: `url(${require('../assets/images/icon-check.svg')})`}"></label>
     </li>
   </ul>
@@ -21,7 +21,6 @@ export default {
   },
   props: {
     checked: {
-      type: Object,
       default: () => {}
     },
     list: {
@@ -31,6 +30,33 @@ export default {
     align: {
       type: String,
       default: "left"
+    },
+    multi: {
+      type: Boolean,
+      default: false
+    }
+  },
+  methods: {
+    handleClick(item) {
+      let checked;
+      
+      if (!this.multi) {
+        if (item.value == this.checked.value) {
+          return;
+        } else {
+          checked = item;
+        }
+      } else { // multi
+        const o = this.checked.find(_item => _item.value == item.value);
+
+        if (o) {
+          checked = this.checked.filter(_item => _item.value != item.value);
+        } else {
+          checked = [...this.checked, item];
+        }
+      }
+
+      this.$emit('change', checked);
     }
   }
 }
@@ -40,19 +66,27 @@ export default {
 @import "../assets/scss/fn";
 
 ul.checklist {
-  border: px2rem(2) solid #eee;
+  max-height: px2rem(262);
+  border: px2rem(2) solid $--color-gray-100;
   border-radius: px2rem($--border-radius);
   font-size: px2rem(14);
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 
   li {
     display: flex;
     align-items: center;
     line-height: px2rem(12);
     padding: px2rem(15);
+    cursor: pointer;
 
     & + li {
-      border-top: px2rem(2) solid #eee;
+      border-top: px2rem(2) solid $--color-gray-100;
     }
+  }
+
+  label {
+    cursor: pointer;
   }
 
   .check {

@@ -1,31 +1,35 @@
 <template>
   <div class="apps">
-    <div class="page-container"
-         :style="{
+    <div
+      class="page-container"
+      :style="{
         width: pageTotal * 100 + 'vw',
         marginLeft: (1 - pageCurrent) * 100 + 'vw',
-      }">
-      <div class="page"
-           :key="pageNum"
-           v-for="pageNum in pageTotal">
-        <div class="page-item"
-             :key="index"
-             v-for="(item, index) in list.slice(
-                (pageNum - 1) * pageSize,
-                (pageNum - 1) * pageSize + pageSize
-              )"
-             @click="handleClick(item)">
+      }"
+    >
+      <div class="page" :key="pageNum" v-for="pageNum in pageTotal">
+        <div
+          class="page-item"
+          :key="index"
+          v-for="(item, index) in list.slice(
+            (pageNum - 1) * pageSize,
+            (pageNum - 1) * pageSize + pageSize
+          )"
+          @click="handleClick(item)"
+        >
           <Pic :url="item.image" />
           <label>{{ item.name }}</label>
         </div>
       </div>
     </div>
-    <nav>
+    <nav v-if="pageTotal > 1">
       <ul>
-        <li :class="{ active: i == pageCurrent }"
-            :key="i"
-            v-for="i in pageTotal"
-            @click="pageCurrent = i"></li>
+        <li
+          :class="{ active: i == pageCurrent }"
+          :key="i"
+          v-for="i in pageTotal"
+          @click="pageCurrent = i"
+        ></li>
       </ul>
     </nav>
   </div>
@@ -34,15 +38,39 @@
 <script>
 import Pic from "@/components/Pic";
 import gesture from "@/utils/gesture";
+import routerMixin from "@/mixins/router.mixin";
 
 export default {
+  mixins: [routerMixin],
   components: {
     Pic,
   },
   data() {
     return {
-      list: [
-        { name: "应用名称应用名称应用名称应用名称", image: "" },
+      list: [],
+      pageSize: 16,
+      pageTotal: 1,
+      pageCurrent: 1,
+    };
+  },
+  watch: {
+    list(val) {
+      this.pageTotal = Math.ceil(val.length / this.pageSize);
+
+      this.$nextTick(() => {
+        this.layout();
+      });
+    },
+  },
+  methods: {
+    init() {
+      // TODO: http request
+      this.list = [
+        {
+          name: "应用名称",
+          image:
+            "https://dss3.baidu.com/-rVXeDTa2gU2pMbgoY3K/it/u=1595130778,1398929864&fm=202&mola=new&crop=v1",
+        },
         {
           name: "应用名称",
           image:
@@ -63,15 +91,7 @@ export default {
         { name: "应用名称", image: "" },
         { name: "应用名称", image: "" },
         { name: "应用名称", image: "" },
-      ],
-      pageSize: 16,
-      pageTotal: 1,
-      pageCurrent: 1,
-    };
-  },
-  methods: {
-    init() {
-      this.pageTotal = Math.ceil(this.list.length / this.pageSize);
+      ];
     },
     ready() {
       gesture.on((direction) => {
@@ -82,7 +102,7 @@ export default {
                 this.pageCurrent = this.pageTotal;
               }, 120);
 
-              this.pageCurrent = this.pageTotal + 0.1;
+              // this.pageCurrent = this.pageTotal + 0.1; 弹簧效果
 
               return;
             }
@@ -96,7 +116,7 @@ export default {
                 this.pageCurrent = 1;
               }, 120);
 
-              this.pageCurrent = 0.9;
+              // this.pageCurrent = 0.9; 弹簧效果
 
               return;
             }
@@ -106,8 +126,6 @@ export default {
             break;
         }
       });
-
-      this.layout();
     },
     layout() {
       const mainH = document.querySelector("main").clientHeight;
@@ -126,13 +144,27 @@ export default {
 
           el.style.padding = `${paddingTop + diffH / 8}px 0`;
         });
+      } else if (mainH <= contH + navH) {
+        const diffH = contH + navH - mainH + 2;
+
+        const ptVal = diffH / 10;
+
+        document.querySelectorAll(".page-item").forEach((el) => {
+          const paddingTop = parseFloat(
+            window.getComputedStyle(el).getPropertyValue("padding-top")
+          );
+
+          el.style.padding = `${paddingTop - ptVal}px 0`;
+        });
+
+        document.querySelector("nav").style.height = navH - 2 * ptVal + "px";
       }
     },
     handleClick(item) {
       this.$log(item);
 
-      this.$router.push({name: 'list', params: {data: item}});
-    }
+      this.wxRouterLinkMixin({ name: "list", params: { data: item } });
+    },
   },
   created: function() {
     this.init();
@@ -158,7 +190,7 @@ export default {
 .page-container {
   display: flex;
   background-color: #fff;
-  transition: margin-left 120ms ease-in-out;
+  @include transition(margin-left);
 }
 
 .page {
@@ -217,7 +249,7 @@ nav {
       height: px2rem(7);
       border: px2rem(1) solid $--color-gray-200;
       border-radius: 50%;
-      transition: all 120ms ease-in-out;
+      @include transition(all);
 
       &.active {
         border-color: $--color-blue;

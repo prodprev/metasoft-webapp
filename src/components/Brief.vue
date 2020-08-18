@@ -44,6 +44,15 @@ export default {
     img {
       width: inherit;
     }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      width: px2rem(40);
+      height: px2rem(80);
+    }
   }
 
   .content {
@@ -92,6 +101,11 @@ export default {
     content: "";
     height: px2rem(1);
     background-color: $--color-gray;
+  }
+
+  &.active,
+  &:hover {
+    background: $--background;
   }
 }
 </style>

@@ -1,28 +1,19 @@
 <template>
   <div class="index">
-    <Header></Header>
+    <Header />
     <main :class="{ change: $route.name == 'list' }">
-      <router-view></router-view>
+      <router-view />
     </main>
-    <Footer></Footer>
-    <Actionsheet
-      v-if="$store.state.actionsheet.show"
-      :list="$store.state.actionsheet.list"
-      :desc="$store.state.actionsheet.desc"
-      @action="(msg) => $store.commit('setActionsheet', { action: msg })"
-      @close="$store.commit('setActionsheet', { show: false })"
-    />
+    <Footer />
   </div>
 </template>
 
 <script>
-import Actionsheet from "@/components/Actionsheet";
 import Header from "@/views/layout/header";
 import Footer from "@/views/layout/footer";
 
 export default {
   components: {
-    Actionsheet,
     Header,
     Footer,
   },
@@ -33,7 +24,7 @@ export default {
 @import "../assets/scss/fn";
 
 .index {
-  height: 100%;
+  @include pagefix();
 }
 
 header {
@@ -49,6 +40,7 @@ main {
     100vh - #{px2rem($--header-height)} - #{px2rem($--footer-height)}
   );
   margin: px2rem($--header-height) 0 px2rem($--footer-height);
+  background: $--background;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 

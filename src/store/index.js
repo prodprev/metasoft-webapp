@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    routeAction: "",
     header: {
       dropdownSelect: null,
     },
@@ -15,10 +16,14 @@ export default new Vuex.Store({
       show: false,
       list: null,
       action: "",
+      id: "",
       desc: "",
     },
   },
   mutations: {
+    setRouteAction(state, payload) {
+      state.routeAction = payload;
+    },
     setHeaderDropdownSelect(state, payload) {
       state.header.dropdownSelect = payload;
     },

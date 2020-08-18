@@ -14,7 +14,7 @@ export default {
   props: ["title"],
   data() {
     return {
-      open: false
+      open: true
     }
   },
   methods: {
@@ -33,15 +33,6 @@ export default {
 
   & + .paragraph {
     border-top: 1px solid #eee;
-  }
-}
-
-.field-group {
-  display: flex;
-  flex-direction: column;
-
-  & + .field-group {
-    margin-top: px2rem(25);
   }
 }
 
@@ -70,11 +61,7 @@ h3 {
 .content {
   display: none;
   flex-direction: column;
-  padding: 0 px2rem(30) px2rem(20);
-
-  .wrapper {
-    display: flex;
-  }
+  padding: 0 px2rem(30) px2rem(25);
 }
 
 .open {
@@ -85,41 +72,5 @@ h3 {
   .content {
     display: flex;
   }
-}
-
-.field-label {
-  line-height: px2rem(12);
-  margin-bottom: px2rem(10);
-  font-size: px2rem(12);
-  color: $--color-dark-100;
-
-  .require {
-    color: #d51b32;
-  }
-}
-
-input,
-textarea {
-  width: 100%;
-  border: px2rem(2) solid $--color-gray-100;
-  border-radius: px2rem($--border-radius);
-  outline: none;
-  -webkit-appearance: none;
-  @include transition(border-color);
-
-  &:focus {
-    border-color: $--color-blue !important;
-  }
-}
-
-input {
-  height: px2rem($--input-height);
-  padding: 0 px2rem(15);
-  font-size: px2rem($--font-size);
-}
-
-textarea {
-  height: px2rem($--input-height * 2);
-  padding: px2rem(15);
 }
 </style>

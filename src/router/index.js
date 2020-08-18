@@ -12,19 +12,37 @@ VueRouter.prototype.push = function push(location) {
 Vue.use(VueRouter);
 
 const routeOptions = [
+  { path: "/", redirect: "login" },
+  { path: "/login", name: "login", meta: { level: 2 } },
   {
-    path: "/",
+    path: "/index",
     component: Index,
     children: [
-      { path: "", name: "home", component: Home, meta: { title: "首页" } },
-      { path: "/create", name: "create", meta: { title: "新建" } },
-      { path: "/apps", name: "apps", meta: { title: "应用" } },
-      { path: "/list", name: "list", meta: { title: "列表展示" } },
+      {
+        path: "",
+        name: "home",
+        component: Home,
+        meta: { title: "首页", level: 1 },
+      },
+      { path: "/news", name: "news", meta: { title: "消息", level: 1 } },
+      { path: "/apps", name: "apps", meta: { title: "应用", level: 1 } },
+      { path: "/me", name: "me", meta: { title: "我的", level: 1 } },
     ],
   },
-  { path: "/login", name: "login" },
-  { path: "/todo", name: "todo", meta: { title: "空白页" } }, // TODO:
-  { path: "/components", name: "common/components" },
+  { path: "/create", name: "create", meta: { title: "新建", level: 2 } },
+  { path: "/list", name: "list", meta: { title: "列表展示", level: 2 } },
+  {
+    path: "/detail/:id",
+    name: "detail",
+    meta: { title: "查看活动", level: 3 },
+  },
+  { path: "/setting", name: "setting", meta: { title: "设置", level: 2 } },
+  {
+    path: "/workbench",
+    name: "workbench",
+    meta: { title: "工作台", level: 2 },
+  },
+  { path: "/todo", name: "todo", meta: { title: "空白页" } },
   { path: "/nopermission", name: "common/no-permission" },
   { path: "*", name: "common/not-found" },
 ];

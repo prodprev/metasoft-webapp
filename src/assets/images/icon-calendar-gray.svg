@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>编组 7</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="表单" transform="translate(-44.000000, -1676.000000)">
+            <g id="编组-7" transform="translate(45.000000, 1677.000000)">
+                <g id="calendar-2" stroke="#999999" stroke-linejoin="round">
+                    <rect id="Rectangle-55" x="0" y="1.8" width="18" height="16.2" rx="3"></rect>
+                    <line x1="4.95" y1="0" x2="4.95" y2="3.6" id="Line"></line>
+                    <line x1="13.05" y1="0" x2="13.05" y2="3.6" id="Line-Copy"></line>
+                </g>
+                <line x1="4.29740471" y1="7.94311297" x2="13.4640714" y2="7.94311297" id="路径-2" stroke="#979797"></line>
+                <line x1="4.27757773" y1="11" x2="10.4998" y2="11" id="路径-2备份" stroke="#979797"></line>
+            </g>
+        </g>
+    </g>
+</svg>

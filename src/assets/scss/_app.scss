@@ -8,10 +8,10 @@
   font-weight: 400;
   letter-spacing: px2rem(1);
   color: $--color-dark;
-  background: $--background;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
 body {
@@ -69,6 +69,7 @@ textarea {
 input {
   height: px2rem($--input-height);
   font-size: px2rem($--font-size);
+  -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 }
 
 button {

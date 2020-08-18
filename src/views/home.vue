@@ -1,72 +1,102 @@
 <template>
   <div class="home">
     <div class="today">
-      <img :src="require('../assets/images/icon-calendar.svg')" />{{today}}
+      <img :src="require('../assets/images/icon-calendar.svg')" />{{ today }}
     </div>
     <div class="tabs">
-      <span class="tab calendar"
-            :class="{active: tabActive == 'calendar'}"
-            @click="tabActive = 'calendar'">日历</span>
-      <span class="tab workbench"
-            :class="{active: tabActive == 'workbench'}"
-            @click="tabActive = 'workbench'">工作台</span>
+      <span
+        class="tab calendar"
+        :class="{ active: tabActive == 'calendar' }"
+        @click="handleTab('calendar')"
+        >日历</span
+      >
+      <span
+        class="tab workbench"
+        :class="{ active: tabActive == 'workbench' }"
+        @click="handleTab('workbench')"
+        >工作台</span
+      >
     </div>
-    <div class="tab-content tab-content-calendar"></div>
-    <div class="tab-content tab-content-workbench">
+    <div
+      v-if="tabActive == 'calendar'"
+      class="tab-content tab-content-calendar"
+    ></div>
+    <div
+      v-if="tabActive == 'workbench'"
+      class="tab-content tab-content-workbench"
+    >
       <ul>
-        <li :key="index"
-            v-for="(item, index) in list">
-          <p class="num"><i></i><label>{{number(item.num)}}</label></p>
-          <p class="name">{{item.name}}</p>
+        <li
+          :key="index"
+          v-for="(item, index) in list"
+          @click="handleQuota(item)"
+        >
+          <p class="num">
+            <i></i><label>{{ number(item.num) }}</label>
+          </p>
+          <p class="name">{{ item.name }}</p>
         </li>
       </ul>
     </div>
-    <div class="card rbsmt">
-      <div class="card-head">
-        <img class="icon"
-             :src="require('../assets/images/icon-rbsmt.svg')" />
+    <div class="card rbsmt" :class="{ active: rbsmtToggle }">
+      <div class="card-head" @click="rbsmtToggle = !rbsmtToggle">
+        <img class="icon" :src="require('../assets/images/icon-rbsmt.svg')" />
         <label>报销</label>
-        <i class="badge">{{rbsmtBadge}}</i>
-        <img class="arrow"
-             :src="require('../assets/images/icon-arrow.svg')">
+        <i class="badge">{{ rbsmtBadge }}</i>
+        <img class="arrow" :src="require('../assets/images/icon-arrow.svg')" />
       </div>
       <div class="card-body"></div>
     </div>
-    <div class="card order">
-      <div class="card-head">
-        <img class="icon"
-             :src="require('../assets/images/icon-order.svg')" />
-        <label>{{orderForMonth}}</label>
-        <i class="badge">{{orderBadge}}</i>
-        <img class="arrow"
-             :src="require('../assets/images/icon-arrow.svg')">
+    <div class="card order" :class="{ active: orderToggle }">
+      <div class="card-head" @click="orderToggle = !orderToggle">
+        <img class="icon" :src="require('../assets/images/icon-order.svg')" />
+        <label>{{ orderForMonth }}</label>
+        <i class="badge">{{ orderBadge }}</i>
+        <img class="arrow" :src="require('../assets/images/icon-arrow.svg')" />
       </div>
       <div class="card-body"></div>
     </div>
-    <div class="add">
-      <router-link to="/create"></router-link>
-    </div>
+    <div class="add" @click="wxRouterLinkMixin({ name: 'create' })"></div>
   </div>
 </template>
 
 <script>
 import number from "@/utils/number";
+import routerMixin from "@/mixins/router.mixin";
 
 export default {
+  mixins: [routerMixin],
   data() {
     return {
       today: new Date().format("yyyy年MM月dd日"),
       tabActive: "workbench",
-      list: [{num: 2390, name: "标题名"}, {num: 23900, name: "标题名"}, {num: 239000, name: "标题名"}, {num: 2390000, name: "标题名"}, {num: 23900000, name: "标题名"}, {num: 239000000, name: "标题名"}],
+      list: [
+        { num: 2390, name: "标题名" },
+        { num: 23900, name: "标题名" },
+        { num: 239000, name: "标题名" },
+        { num: 2390000, name: "标题名" },
+        { num: 23900000, name: "标题名" },
+        { num: 239000000, name: "标题名" },
+      ],
+      rbsmtToggle: false,
+      orderToggle: false,
       orderForMonth: "7月订单",
       rbsmtBadge: 2,
-      orderBadge: 23
-    }
+      orderBadge: 23,
+    };
   },
   methods: {
-    number
-  }
-}
+    number,
+    handleTab(tab) {
+      this.tabActive = tab;
+    },
+    handleQuota(item) {
+      this.$log(item);
+
+      this.wxRouterLinkMixin({ name: "workbench" });
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">
@@ -116,7 +146,13 @@ export default {
   }
 }
 
-.tab-content {
+.tab-content.tab-content-calendar {
+  height: px2rem(176);
+  background: #fff;
+  border-radius: px2rem(8);
+}
+
+.tab-content.tab-content-workbench {
   background: #fff;
   border-radius: px2rem(8);
 
@@ -133,13 +169,12 @@ export default {
       width: 33.3%;
       min-height: px2rem(88);
       padding: px2rem(10);
-      text-align: center;
+      cursor: pointer;
 
       .num {
         position: relative;
         display: flex;
         align-items: center;
-        justify-content: center;
         width: 100%;
 
         i {
@@ -148,21 +183,25 @@ export default {
           left: 0;
           width: px2rem(8);
           height: px2rem(8);
-          margin-right: px2rem(5);
           border: px2rem(2) solid transparent;
           border-radius: 50%;
           transform: translateY(-50%);
         }
 
         label {
+          margin-left: px2rem(13);
           white-space: nowrap;
+          cursor: pointer;
         }
       }
 
       .name {
+        width: 100%;
+        padding-left: px2rem(13);
         margin-top: px2rem(3);
         font-size: px2rem(12);
         color: $--color-dark-200;
+        @include txtEll();
       }
 
       &:not(:first-child):nth-child(3n + 1)::before {
@@ -214,6 +253,7 @@ export default {
     align-items: center;
     height: px2rem(56);
     cursor: pointer;
+    -webkit-tap-highlight-color: rgba(255, 0, 0, 0);
 
     .icon {
       width: px2rem(18);
@@ -237,6 +277,25 @@ export default {
 
     .arrow {
       width: px2rem(10);
+      transform: rotate(0);
+      @include transition(all);
+    }
+  }
+
+  .card-body {
+    height: 0;
+    visibility: hidden;
+    @include transition(height);
+  }
+
+  &.active {
+    .card-head .arrow {
+      transform: rotate(-180deg);
+    }
+
+    .card-body {
+      min-height: px2rem(100);
+      visibility: visible;
     }
   }
 }

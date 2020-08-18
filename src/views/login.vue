@@ -1,39 +1,43 @@
 <template>
-  <div class="login"
-       :style="{backgroundImage: `url(${require('../assets/images/login-bg.png')})`}">
-    <router-link :to="{name: 'todo', params: {title: '设置'}}">
-      <div class="setting">
-        <img :src="require('../assets/images/icon-gear.svg')" />设置
-      </div>
-    </router-link>
-    <div class="logo"
-         :style="{
+  <div
+    class="login"
+    :style="{
+      backgroundImage: `url(${require('../assets/images/login-bg.png')})`,
+    }"
+  >
+    <div class="setting" @click="wxRouterLinkMixin({ name: 'setting' })">
+      <img :src="require('../assets/images/icon-gear.svg')" />设置
+    </div>
+    <div
+      class="logo"
+      :style="{
         backgroundImage: 'url(' + require('../assets/images/logo@2x.png') + ')',
-      }"></div>
+      }"
+    ></div>
     <div class="form">
       <div class="form-group">
         <img :src="require('../assets/images/icon-user.svg')" />
-        <input placeholder="请输入账号"
-               v-model="username" />
+        <input placeholder="请输入账号" v-model="username" />
       </div>
       <div class="form-group">
         <img :src="require('../assets/images/icon-lock.svg')" />
-        <input type="password"
-               placeholder="请输入密码"
-               v-model="password" />
+        <input type="password" placeholder="请输入密码" v-model="password" />
       </div>
       <div class="form-group">
-        <button class="primary"
-                @click="handleLogin">登录</button>
+        <button class="primary" @click="handleLogin">登录</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Toast } from 'mint-ui';
+import { Toast } from "mint-ui";
+import routerMixin from "@/mixins/router.mixin";
+
+const db = { username: "admin", password: "12345" };
 
 export default {
+  mixins: [routerMixin],
   data() {
     return {
       username: "",
@@ -43,17 +47,17 @@ export default {
   methods: {
     handleLogin() {
       // TODO: this.$api.xxx
-      
-      if (this.username && this.password) {
-        this.$router.push({path: '/'});
+      if (this.username == db.username && this.password == db.password) {
+        this.$router.push({ path: "/index" });
       } else {
         Toast({
-          message: '账号或密码错误',
-          duration: 3000
+          message: "账号或密码错误",
+          position: "bottom",
+          duration: 3000,
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -61,8 +65,7 @@ export default {
 @import "../assets/scss/fn";
 
 .login {
-  position: relative;
-  height: inherit;
+  @include pagefix();
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;

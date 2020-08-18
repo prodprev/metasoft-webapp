@@ -1,5 +1,5 @@
 <template>
-  <div class="todo">
+  <div class="workbench">
     <Header />
   </div>
 </template>
@@ -9,14 +9,16 @@ import Header from "@/views/layout/header";
 
 export default {
   components: {
-    Header
-  }
-}
+    Header,
+  },
+};
 </script>
 
-<style scoped>
-.todo {
-  height: 100%;
+<style scoped lang="scss">
+@import "../assets/scss/fn";
+
+.workbench {
+  @include pagefix();
 }
 
 header {

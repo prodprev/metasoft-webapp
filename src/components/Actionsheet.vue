@@ -1,21 +1,23 @@
 <template>
-  <div class="actionsheet">
-    <div class="wrapper">
-      <div class="actions">
-        <p v-if="desc">{{ desc }}</p>
-        <ul>
-          <li
-            class="action"
-            :key="index"
-            v-for="(item, index) in list"
-            @click="$emit('action', item)"
-          >
-            {{ item.name }}
-          </li>
-        </ul>
+  <div class="actionsheet" @click.stop="handleClose($event)">
+    <transition name="slide">
+      <div v-if="show" class="wrapper">
+        <div class="actions">
+          <p v-if="desc">{{ desc }}</p>
+          <ul>
+            <li
+              class="action"
+              :key="index"
+              v-for="(item, index) in list"
+              @click="$emit('action', item)"
+            >
+              {{ item.name }}
+            </li>
+          </ul>
+        </div>
+        <div class="action close" @click="handleClose($event)">取消</div>
       </div>
-      <div class="action close" @click="$emit('close')">取消</div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -30,6 +32,25 @@ export default {
     desc: {
       type: String,
     },
+  },
+  data() {
+    return {
+      show: false,
+    };
+  },
+  methods: {
+    handleClose(e) {
+      const className = e.target.className;
+
+      if (className.includes("actionsheet") || className.includes("close")) {
+        this.$emit("close");
+      }
+    },
+  },
+  mounted: function() {
+    setTimeout(() => {
+      this.show = true;
+    }, 200);
   },
 };
 </script>
@@ -77,13 +98,23 @@ export default {
     cursor: pointer;
   }
 
-  li + li {
+  li + li,
+  p + ul {
     border-top: 1px solid $--color-gray;
   }
 
   .close {
-    margin-top: px2rem(20);
+    margin-top: px2rem(10);
     border-radius: px2rem(13);
   }
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  @include transition(all, 180ms);
+}
+.slide-enter,
+.slide-leave-to {
+  transform: translateY(110vh);
 }
 </style>
