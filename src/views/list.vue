@@ -2,17 +2,38 @@
   <div class="list">
     <Header />
     <div class="content">
-      <Brief
-        :class="{
+      <mt-loadmore :top-method="loadTop"
+                   :bottom-method="loadBottom"
+                   :top-all-loaded="allLoaded"
+                   :bottom-all-loaded="allLoaded"
+                   :top-distance="100"
+                   :bottom-distance="70"
+                   :distance-index="2"
+                   @top-status-change="handleTopChange"
+                   @bottom-status-change="handleBottomChange"
+                   ref="loadmore">
+        <Brief :class="{
           active:
             $store.state.actionsheet.id == item.id || clicked.id == item.id,
         }"
-        :key="index"
-        v-for="(item, index) in list"
-        :data="item"
-        @actionsheet="handleActionsheet(item)"
-        @click.native="handleClick(item)"
-      />
+               :key="index"
+               v-for="(item, index) in list"
+               :data="item"
+               @actionsheet="handleActionsheet(item)"
+               @click.native="handleClick(item)" />
+        <div slot="top"
+             class="mint-loadmore-top">
+          <span v-show="topStatus !== 'loading'"
+                :class="{ 'is-rotate': topStatus === 'drop' }">↓ 下拉刷新</span>
+          <span v-show="topStatus === 'loading'">加载中...</span>
+        </div>
+        <div slot="bottom"
+             class="mint-loadmore-bottom">
+          <span v-show="bottomStatus !== 'loading'"
+                :class="{ 'is-rotate': bottomStatus === 'drop' }">↑ 释放更新</span>
+          <span v-show="bottomStatus === 'loading'">加载中...</span>
+        </div>
+      </mt-loadmore>
     </div>
   </div>
 </template>
@@ -40,6 +61,9 @@ export default {
         { name: "复制", action: "copy" },
         { name: "测试", action: "test" },
       ],
+      allLoaded: false,
+      topStatus: "",
+      bottomStatus: ""
     };
   },
   watch: {
@@ -114,6 +138,22 @@ export default {
     },
     commit(mutation, payload) {
       this.$store.commit(`${mutation}`, payload);
+    },
+    loadTop() {
+      // 加载更多数据
+      // this.allLoaded = true;// 若数据已全部获取完毕
+      this.$refs.loadmore.onTopLoaded();
+    },
+    loadBottom() {
+      // 加载更多数据
+      // this.allLoaded = true;// 若数据已全部获取完毕
+      this.$refs.loadmore.onBottomLoaded();
+    },
+    handleTopChange(status) {
+      this.topStatus = status;
+    },
+    handleBottomChange(status) {
+      this.bottomStatus = status;
     },
     handleActionsheet(msg) {
       this.commit("setActionsheet", {

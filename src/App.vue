@@ -1,7 +1,9 @@
 <template>
   <div id="app">
     <transition :name="$store.state.routeAction">
-      <router-view />
+      <keep-alive>
+        <router-view />
+      </keep-alive>
     </transition>
     <Actionsheet v-if="$store.state.actionsheet.show"
                  :list="$store.state.actionsheet.list"

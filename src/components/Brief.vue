@@ -1,6 +1,8 @@
 <template>
-  <div class="brief" @click="$emit('click', data)">
-    <span class="dots" @click.stop="$emit('actionsheet', data)">
+  <div class="brief"
+       @click="$emit('click', data)">
+    <span class="dots"
+          @click.stop="$emit('actionsheet', data)">
       <img :src="require('../assets/images/icon-dots.svg')" />
     </span>
     <span class="content">
@@ -105,7 +107,7 @@ export default {
 
   &.active,
   &:hover {
-    background: $--background;
+    background: #fafafa;
   }
 }
 </style>

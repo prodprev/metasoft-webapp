@@ -14,3 +14,19 @@
     white-space: nowrap;
   }
 }
+
+.picker {
+  .mint-datetime-action {
+    color: $--color-blue;
+  }
+
+  .picker-items {
+    height: 100%;
+  }
+}
+
+.mint-loadmore-top,
+.mint-loadmore-bottom {
+  font-size: px2rem(14);
+  color: $--color-dark-200;
+}

@@ -1,15 +1,16 @@
 <template>
-  <div class="field-group" :class="{ inline: inline, long: long }">
+  <div class="field-group"
+       :class="{ inline: inline, long: long }">
     <label class="field-label">
-      <i v-if="required" class="require">*</i>{{ name }}
+      <i v-if="required"
+         class="require">*</i>{{ name }}
     </label>
-    <div class="wrapper" :class="{ 'field-arrow': arrow }">
+    <div class="wrapper"
+         :class="{ 'field-arrow': arrow }">
       <slot></slot>
-      <img
-        v-if="arrow"
-        class="arrow"
-        :src="require('../assets/images/icon-arrow.svg')"
-      />
+      <img v-if="arrow"
+           class="arrow"
+           :src="require('../assets/images/icon-arrow.svg')" />
     </div>
   </div>
 </template>
@@ -97,6 +98,7 @@ $--color-100: #d51b32;
     width: px2rem(10);
     transform: translateY(-50%) rotate(-90deg);
     transform-origin: center;
+    pointer-events: none;
   }
 }
 

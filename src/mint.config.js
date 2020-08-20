@@ -1,7 +1,11 @@
-import { Toast } from "mint-ui";
+import { Toast, Picker, DatetimePicker, Loadmore, Spinner } from "mint-ui";
 
 const components = {
   Toast,
+  Picker,
+  DatetimePicker,
+  Loadmore,
+  Spinner,
 };
 
 const componentsHandler = {

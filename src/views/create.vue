@@ -3,48 +3,52 @@
     <Header />
     <div class="content">
       <Paragraph title="基本信息">
-        <FieldGroup :required="true" name="活动主题">
-          <input v-model="topic" placeholder="请输入内容" />
-          <span class="error" v-if="errors['topic']">
+        <FieldGroup :required="true"
+                    name="活动主题">
+          <input v-model="topic"
+                 placeholder="请输入内容" />
+          <span class="error"
+                v-if="errors['topic']">
             {{ errors["topic"] }}
           </span>
         </FieldGroup>
         <FieldGroup name="地点">
-          <textarea placeholder="请输入地点" maxlength="100"></textarea>
+          <textarea placeholder="请输入地点"
+                    maxlength="100"></textarea>
         </FieldGroup>
-        <FieldGroup :required="true" name="性别">
+        <FieldGroup :required="true"
+                    name="性别">
           <div class="field-gender">
-            <div
-              class="gender"
-              :class="{ open: genderToggle }"
-              @click="genderToggle = !genderToggle"
-            >
-              <input v-model="singleSelect.name" disabled />
-              <img
-                class="arrow"
-                :src="require('../assets/images/icon-arrow.svg')"
-              />
+            <div class="gender"
+                 :class="{ open: genderToggle }"
+                 @click="genderToggle = !genderToggle">
+              <input v-model="singleSelect.name"
+                     disabled />
+              <img class="arrow"
+                   :src="require('../assets/images/icon-arrow.svg')" />
             </div>
             <transition name="slide">
-              <Checklist
-                v-if="genderToggle"
-                v-model="singleSelect"
-                :list="checklist"
-                align="right"
-                @change="genderToggle = false"
-              />
+              <Checklist v-if="genderToggle"
+                         v-model="singleSelect"
+                         :list="checklist"
+                         align="right"
+                         @change="genderToggle = false" />
             </transition>
           </div>
         </FieldGroup>
         <FieldGroup name="网址">
-          <input v-model="website" placeholder="请输入网址" />
-          <span class="error" v-if="errors['website']">
+          <input v-model="website"
+                 placeholder="请输入网址" />
+          <span class="error"
+                v-if="errors['website']">
             {{ errors["website"] }}
           </span>
         </FieldGroup>
         <FieldGroup name="电子邮件">
-          <input v-model="email" placeholder="请输入电子邮件" />
-          <span class="error" v-if="errors['email']">
+          <input v-model="email"
+                 placeholder="请输入电子邮件" />
+          <span class="error"
+                v-if="errors['email']">
             {{ errors["email"] }}
           </span>
         </FieldGroup>
@@ -52,130 +56,153 @@
       <Paragraph title="联系人"></Paragraph>
       <Paragraph title="线索">
         <FieldGroup name="电话">
-          <input type="tel" v-model="phone" placeholder="请输入电话号" />
-          <span class="error" v-if="errors['phone']">
+          <input type="tel"
+                 v-model="phone"
+                 placeholder="请输入电话号" />
+          <span class="error"
+                v-if="errors['phone']">
             {{ errors["phone"] }}
           </span>
         </FieldGroup>
         <FieldGroup name="传真">
-          <input v-model="tax" placeholder="请输入传真号" />
-          <span class="error" v-if="errors['tax']">
+          <input v-model="tax"
+                 placeholder="请输入传真号" />
+          <span class="error"
+                v-if="errors['tax']">
             {{ errors["tax"] }}
           </span>
         </FieldGroup>
         <FieldGroup name="QQ">
-          <input v-model="qq" placeholder="请输入QQ号" />
-          <span class="error" v-if="errors['qq']">
+          <input v-model="qq"
+                 placeholder="请输入QQ号" />
+          <span class="error"
+                v-if="errors['qq']">
             {{ errors["qq"] }}
           </span>
         </FieldGroup>
-        <FieldGroup name="地址" :arrow="true">
+        <FieldGroup name="地址"
+                    :arrow="true">
           <div class="field-address">
-            <img
-              class="prev-icon"
-              :src="require('../assets/images/icon-pin.svg')"
-            />
+            <img class="prev-icon"
+                 :src="require('../assets/images/icon-pin.svg')" />
             <input placeholder="请输入地址" />
           </div>
         </FieldGroup>
         <FieldGroup name="客户">
           <div class="field-customer">
             <input placeholder="请选择客户" />
-            <span class="search"
-              ><img :src="require('../assets/images/icon-search-gray.svg')"
-            /></span>
+            <span class="search"><img :src="require('../assets/images/icon-search-gray.svg')" /></span>
           </div>
         </FieldGroup>
         <FieldGroup name="多选">
-          <Checklist
-            class="field-multi-select"
-            v-model="multiSelect"
-            :list="checklist2"
-            align="left"
-            :multi="true"
-          />
+          <Checklist class="field-multi-select"
+                     v-model="multiSelect"
+                     :list="checklist2"
+                     align="left"
+                     :multi="true" />
         </FieldGroup>
-        <FieldGroup name="日期" :arrow="true">
+        <FieldGroup name="日期"
+                    :arrow="true">
           <div class="field-date">
-            <img
-              class="prev-icon"
-              :src="require('../assets/images/icon-calendar-gray.svg')"
-            />
-            <input placeholder="请选择日期" readonly />
+            <img class="prev-icon"
+                 :src="require('../assets/images/icon-calendar-gray.svg')" />
+            <input v-model="dateTimeValue"
+                   placeholder="请选择日期"
+                   readonly
+                   @click="handleDateTimeOpen"
+                   onfocus="this.blur()" />
           </div>
         </FieldGroup>
-        <FieldGroup name="数字" :arrow="true">
-          <input type="number" placeholder="请选择数字" maxlength="11" />
+        <FieldGroup name="数字"
+                    :arrow="true">
+          <input v-model="numberPicked"
+                 placeholder="请选择数字"
+                 readonly
+                 @click="handlePickerOpen"
+                 onfocus="this.blur()" />
         </FieldGroup>
-        <FieldGroup name="附件" :arrow="true">
-          <Upload
-            class="field-attachment"
-            :multiple="true"
-            @ready="handlePreview($event, 'file')"
-          >
-            <img
-              class="prev-icon"
-              :src="require('../assets/images/icon-paper-clip.svg')"
-            />
-            <input value="请选择附件" disabled />
+        <FieldGroup name="附件"
+                    :arrow="true">
+          <Upload class="field-attachment"
+                  :multiple="true"
+                  @ready="handlePreview($event, 'file')">
+            <img class="prev-icon"
+                 :src="require('../assets/images/icon-paper-clip.svg')" />
+            <input value="请选择附件"
+                   disabled />
           </Upload>
         </FieldGroup>
-        <FieldGroup v-if="files.length > 0" name="已选附件">
+        <FieldGroup v-if="files.length > 0"
+                    name="已选附件">
           <ul class="field-file-preview">
-            <li :key="index" v-for="(item, index) in files">
-              <img
-                class="prev-icon"
-                :src="require('../assets/images/icon-paper-clip.svg')"
-              />
+            <li :key="index"
+                v-for="(item, index) in files">
+              <img class="prev-icon"
+                   :src="require('../assets/images/icon-paper-clip.svg')" />
               <label>{{ item.name }}</label>
-              <img
-                class="suffix-icon"
-                :src="require('../assets/images/icon-close.svg')"
-                @click="handleDelete(item, 'file')"
-              />
+              <img class="suffix-icon"
+                   :src="require('../assets/images/icon-close.svg')"
+                   @click="handleDelete(item, 'file')" />
             </li>
           </ul>
         </FieldGroup>
-        <Progress class="field-progress" name="百分比" :percent="percent" />
-        <FieldGroup class="field-image-attachment" name="上传图片">
+        <Progress class="field-progress"
+                  name="百分比"
+                  :percent="percent" />
+        <FieldGroup class="field-image-attachment"
+                    name="上传图片">
           <ul class="field-image-preview">
-            <li :key="index" v-for="(item, index) in images">
-              <div
-                class="inner"
-                @click="handleShowPreviewImage(item.src)"
-                :style="{ backgroundImage: `url(${item.src})` }"
-              >
-                <img
-                  class="delete"
-                  :src="require('../assets/images/icon-delete-image.svg')"
-                  @click.stop="handleDelete(item, 'image')"
-                />
+            <li :key="index"
+                v-for="(item, index) in images">
+              <div class="inner"
+                   @click="handleShowPreviewImage(item.src)"
+                   :style="{ backgroundImage: `url(${item.src})` }">
+                <img class="delete"
+                     :src="require('../assets/images/icon-delete-image.svg')"
+                     @click.stop="handleDelete(item, 'image')" />
               </div>
             </li>
             <li class="ignore">
-              <Upload
-                class="field-image-upload"
-                :image="true"
-                :multiple="true"
-                @ready="handlePreview($event, 'image')"
-              >
+              <Upload class="field-image-upload"
+                      :image="true"
+                      :multiple="true"
+                      @ready="handlePreview($event, 'image')">
                 <div class="uploader">
-                  <img
-                    class="icon"
-                    :src="require('../assets/images/icon-camera.svg')"
-                  />
+                  <img class="icon"
+                       :src="require('../assets/images/icon-camera.svg')" />
                 </div>
               </Upload>
             </li>
           </ul>
         </FieldGroup>
       </Paragraph>
-      <PreviewImage
-        v-if="showPreviewImage"
-        :pre="previewImageUrl"
-        :url="previewImageUrl"
-        @close="showPreviewImage = false"
-      />
+      <PreviewImage v-if="showPreviewImage"
+                    :pre="previewImageUrl"
+                    :url="previewImageUrl"
+                    @close="showPreviewImage = false" />
+      <mt-datetime-picker type="date"
+                          v-model="dateTimeValue"
+                          @input="handleDateTime"
+                          ref="dateTimePicker">
+      </mt-datetime-picker>
+      <div v-if="numberVisible"
+           class="picker-container"
+           @click.stop="handlePickerClose">
+        <transition name="picker">
+          <div v-if="numberPickable"
+               class="picker-wrapper">
+            <div class="picker-toolbar">
+              <span class="picker-cancel"
+                    @click="handlePickerClose">取消</span>
+              <span class="picker-confirm"
+                    @click="handlePickerClose">确定</span>
+            </div>
+            <mt-picker :slots="numberPickers"
+                       @change="handleNumberPick">
+            </mt-picker>
+          </div>
+        </transition>
+      </div>
     </div>
   </div>
 </template>
@@ -188,6 +215,7 @@ import Checklist from "@/components/Checklist";
 import Upload from "@/components/Upload";
 import Progress from "@/components/Progress";
 import PreviewImage from "@/components/PreviewImage";
+import fixScroll from "@/utils/fixScroll";
 
 export default {
   components: {
@@ -221,6 +249,11 @@ export default {
         { value: "3", name: "多选择内容3" },
         { value: "4", name: "多选择内容4" },
       ],
+      dateTimeValue: "",
+      numberVisible: false,
+      numberPickable: false,
+      numberPicked: "",
+      numberPickers: [{values: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}],
       files: [],
       percent: 80,
       images: [],
@@ -240,7 +273,7 @@ export default {
       message: "至少 4 位字符",
     },
     website: {
-      test: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$/,
+      // test: /(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?/,
       message: "格式不正确",
     },
     email: {
@@ -261,6 +294,35 @@ export default {
     },
   },
   methods: {
+    handleDateTimeOpen() {
+      this.$refs.dateTimePicker.open();
+
+      fixScroll(document.querySelector(".mint-datetime"), [document.querySelector(".picker-items")]);
+    },
+    handleDateTime(val) {
+      this.dateTimeValue = val.format("yyyy-MM-dd");
+    },
+    handlePickerOpen() {
+      this.numberVisible = true;
+
+      this.$nextTick(() => {
+        this.numberPickable = true;
+
+        this.$nextTick(() => {
+          fixScroll(document.querySelector(".picker-container"), [document.querySelector(".picker-wrapper"), document.querySelector(".picker-toolbar"), document.querySelector(".picker"), document.querySelector(".picker-items"), document.querySelector(".picker-item")]);
+        });
+      });
+    },
+    handleNumberPick(picker, values) {
+      this.numberPicked = values[0];
+    },
+    handlePickerClose() {
+      this.numberPickable = false;
+
+      this.$nextTick(() => {
+        this.numberVisible = false;
+      });
+    },
     handlePreview(file, type) {
       if (type == "file") {
         if (this.files.find((item) => item.src == file.src)) return;
@@ -376,6 +438,10 @@ export default {
   input {
     padding-left: px2rem(45);
   }
+}
+
+.field-date img {
+  pointer-events: none;
 }
 
 .field-customer {
@@ -517,6 +583,48 @@ export default {
   }
 }
 
+.picker-container {
+  @include position(fixed);
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+
+  .picker-wrapper {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #fff;
+  }
+
+  .picker-toolbar {
+    height: px2rem(40);
+    border-bottom: px2rem(1) solid #eaeaea;
+  }
+
+  .picker-cancel,
+  .picker-confirm {
+    display: inline-block;
+    width: 50%;
+    text-align: center;
+    line-height: px2rem(40);
+    font-size: px2rem(16);
+    color: $--color-blue;
+  }
+
+  .picker-cancel {
+    float: left;
+  }
+
+  .picker-confirm {
+    float: right;
+  }
+
+  .picker {
+    flex: 1;
+  }
+}
+
 .slide-enter-active,
 .slide-leave-active {
   @include transition(all, 180ms);
@@ -524,5 +632,14 @@ export default {
 .slide-enter,
 .slide-leave-to {
   transform: translateY(#{px2rem(-10)});
+}
+
+.picker-enter-active,
+.picker-leave-active {
+  @include transition(all, 180ms);
+}
+.picker-enter,
+.picker-leave-to {
+  transform: translateY(110vh);
 }
 </style>
