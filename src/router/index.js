@@ -13,7 +13,7 @@ Vue.use(VueRouter);
 
 const routeOptions = [
   { path: "/", redirect: "login" },
-  { path: "/login", name: "login", meta: { level: 2 } },
+  { path: "/login", name: "login", meta: { level: 1 } },
   {
     path: "/index",
     component: Index,
@@ -30,6 +30,8 @@ const routeOptions = [
     ],
   },
   { path: "/create", name: "create", meta: { title: "新建", level: 2 } },
+  { path: "/customer", name: "customer", meta: { title: "请选择", level: 3 } },
+  { path: "/multi", name: "multi", meta: { title: "请选择", level: 3 } },
   { path: "/list", name: "list", meta: { title: "列表展示", level: 2 } },
   {
     path: "/detail/:id",
@@ -42,7 +44,7 @@ const routeOptions = [
     name: "workbench",
     meta: { title: "工作台", level: 2 },
   },
-  { path: "/todo", name: "todo", meta: { title: "空白页" } },
+  { path: "/todo", name: "todo", meta: { title: "空白页", level: 99 } },
   { path: "/nopermission", name: "common/no-permission" },
   { path: "*", name: "common/not-found" },
 ];

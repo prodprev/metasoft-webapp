@@ -48,6 +48,7 @@ export default {
     handleLogin() {
       // TODO: this.$api.xxx
       if (this.username == db.username && this.password == db.password) {
+        this.$store.commit("setRouteAction", "no-animate");
         this.$router.push({ path: "/index" });
       } else {
         Toast({

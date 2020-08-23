@@ -6,7 +6,8 @@
           v-if="
             [
               'create',
-              'list',
+              'customer',
+              'multi',
               'detail',
               'setting',
               'workbench',
@@ -18,41 +19,17 @@
           @click="handleBack"
         ></div>
       </div>
-      <div
-        class="md"
-        :class="{ dd: $route.name == 'list', show: dropdownToggle }"
-        @click="handleDropdown"
-      >
+      <div class="md">
         {{ $route.meta.title }}
-        <span
-          class="dropdown"
-          :style="{ backgroundImage: dropdownBgImg }"
-        ></span>
-        <transition name="slide-fade">
-          <ul v-if="dropdownToggle" class="dropdown-selects">
-            <li
-              :key="index"
-              v-for="(item, index) in $store.state.list.dropdownSelects"
-              @click.stop="handleSelect(item)"
-            >
-              {{ item.name }}
-            </li>
-          </ul>
-        </transition>
       </div>
       <div class="rt">
-        <div
-          v-if="['list'].includes($route.name)"
-          class="add"
-          :style="{ backgroundImage: addBgImg }"
-        ></div>
         <div
           v-if="['home'].includes($route.name)"
           class="query"
           :style="{ backgroundImage: queryBgImg }"
         ></div>
         <div
-          v-if="['create'].includes($route.name)"
+          v-if="['create', 'customer', 'multi'].includes($route.name)"
           class="submit"
           :style="{ backgroundImage: submitBgImg }"
         ></div>
@@ -64,32 +41,20 @@
         ></div>
       </div>
     </div>
-    <div v-if="['list'].includes($route.name)" class="wrapper flex-start">
-      <Search @input="handleInput" />
-      <div class="filter" :style="{ backgroundImage: filterBgImg }"></div>
-    </div>
   </header>
 </template>
 
 <script>
-import Search from "@/components/Search";
 import routerMixin from "@/mixins/router.mixin";
 
 export default {
   mixins: [routerMixin],
-  components: {
-    Search,
-  },
   data() {
     return {
       backBgImg: `url(${require("../../assets/images/icon-header-back.svg")})`,
-      dropdownBgImg: `url(${require("../../assets/images/icon-header-dropdown.svg")})`,
-      addBgImg: `url(${require("../../assets/images/icon-header-add.svg")})`,
-      filterBgImg: `url(${require("../../assets/images/icon-search-filter.svg")})`,
       queryBgImg: `url(${require("../../assets/images/icon-search.svg")})`,
       submitBgImg: `url(${require("../../assets/images/icon-check.svg")})`,
       dotsBgImg: `url(${require("../../assets/images/icon-h-dots.svg")})`,
-      dropdownToggle: false,
       actions: [
         { name: "编辑", action: "edit" },
         { name: "关闭", action: "close" },
@@ -98,28 +63,10 @@ export default {
       ],
     };
   },
-  watch: {
-    "$route.name": function() {
-      this.dropdownToggle = false;
-    },
-  },
   methods: {
     handleBack() {
-      const isNoAni = this.$route.name == "todo" || this.$route.path == "/todo";
-
-      this.wxRouterLinkMixin(-1, isNoAni);
+      this.wxRouterLinkMixin(-1, false);
     },
-    handleDropdown() {
-      if (this.$route.name != "list") return;
-
-      this.dropdownToggle = !this.dropdownToggle;
-    },
-    handleSelect(item) {
-      this.dropdownToggle = false;
-
-      this.commit("setHeaderDropdownSelect", item);
-    },
-    handleInput() {},
     handleActionsheet() {
       this.commit("setActionsheet", {
         show: true,
@@ -152,10 +99,6 @@ header {
     align-items: center;
     justify-content: space-between;
     height: px2rem(45);
-
-    &.flex-start {
-      align-items: flex-start;
-    }
   }
 
   .lt,
@@ -171,26 +114,9 @@ header {
     display: flex;
     align-items: center;
     z-index: 1;
-
-    &.dd {
-      cursor: pointer;
-
-      .dropdown {
-        display: block;
-      }
-    }
-
-    &.show {
-      .dropdown {
-        transform: rotate(-180deg);
-      }
-    }
   }
 
   .back,
-  .dropdown,
-  .add,
-  .filter,
   .query,
   .submit,
   .dots {
@@ -205,18 +131,6 @@ header {
     height: px2rem(17);
   }
 
-  .dropdown {
-    display: none;
-    position: absolute;
-    top: px2rem(10);
-    right: px2rem(-16);
-    width: px2rem(10);
-    height: px2rem(5);
-    margin-left: px2rem(6);
-    @include transition(all);
-  }
-
-  .add,
   .query {
     width: px2rem(17);
     height: px2rem(17);
@@ -243,65 +157,5 @@ header {
       content: "";
     }
   }
-
-  .filter {
-    width: px2rem(15);
-    height: px2rem(16);
-    margin: px2rem(9) px2rem(1);
-  }
-
-  .search {
-    flex: 1;
-    margin-right: px2rem(15);
-  }
-
-  .dropdown-selects {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    width: px2rem(170);
-    margin-top: px2rem(36);
-    border-radius: px2rem(10);
-    font-size: px2rem(16);
-    color: $--color-dark;
-    background-color: #fff;
-    box-shadow: 0 px2rem(6) px2rem(25) 0 rgba(0, 0, 0, 0.13);
-    transform: translateX(-50%);
-    z-index: 1;
-
-    li {
-      padding: px2rem(17);
-      line-height: px2rem(16);
-      text-align: center;
-
-      & + li {
-        border-top: 1px solid $--color-gray;
-      }
-    }
-
-    &::before {
-      position: absolute;
-      top: px2rem(-20);
-      left: 50%;
-      content: "";
-      width: 0;
-      height: 0;
-      border-width: px2rem(10);
-      border-style: solid;
-      border-color: transparent transparent #fff;
-      transform: translateX(-50%);
-    }
-  }
-}
-
-.slide-fade-enter-active,
-.slide-fade-leave-active {
-  @include transition(all);
-}
-
-.slide-fade-enter,
-.slide-fade-leave-to {
-  top: px2rem(-10);
-  opacity: 0;
 }
 </style>

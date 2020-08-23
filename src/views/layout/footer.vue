@@ -1,18 +1,18 @@
 <template>
   <footer>
-    <span class="menu"
-          :class="{select: item.code == select}"
-          :key="index"
-          v-for="(item, index) in menus"
-          @click="select = item.code">
+    <span
+      class="menu"
+      :class="{ select: item.code == select }"
+      :key="index"
+      v-for="(item, index) in menus"
+      @click="select = item.code"
+    >
       <label class="icon">
-        <i v-if="item.badgeCount">{{item.badgeCount}}</i>
-        <img class="normal"
-             :src="item.icon" />
-        <img class="active"
-             :src="item.iconActive" />
+        <i v-if="item.badgeCount">{{ item.badgeCount }}</i>
+        <img class="normal" :src="item.icon" />
+        <img class="active" :src="item.iconActive" />
       </label>
-      <label>{{item.name}}</label>
+      <label>{{ item.name }}</label>
     </span>
   </footer>
 </template>
@@ -31,23 +31,40 @@ export default {
   data() {
     return {
       menus: [
-        {name: "首页", code: "home", icon: homeIcon, iconActive: homeIconActive},
-        {name: "消息", code: "news", icon: newsIcon, iconActive: newsIconActive, badgeCount: 12},
-        {name: "应用", code: "apps", icon: appIcon, iconActive: appIconActive},
-        {name: "我的", code: "me", icon: meIcon, iconActive: meIconActive}
+        {
+          name: "首页",
+          code: "home",
+          icon: homeIcon,
+          iconActive: homeIconActive,
+        },
+        {
+          name: "消息",
+          code: "news",
+          icon: newsIcon,
+          iconActive: newsIconActive,
+          badgeCount: 12,
+        },
+        {
+          name: "应用",
+          code: "apps",
+          icon: appIcon,
+          iconActive: appIconActive,
+        },
+        { name: "我的", code: "me", icon: meIcon, iconActive: meIconActive },
       ],
-      select: this.$route.name || "home"
-    }
+      select: this.$route.name || "home",
+    };
   },
   watch: {
     "$route.name": function(newVal) {
       this.select = newVal;
     },
-    "select": function(newVal) {
-      this.$router.push({name: newVal});
-    }
-  }
-}
+    select: function(newVal) {
+      this.$store.commit("setRouteAction", "no-animate");
+      this.$router.push({ name: newVal });
+    },
+  },
+};
 </script>
 
 <style scoped lang="scss">

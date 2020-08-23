@@ -6,8 +6,10 @@
 
 <script>
 import Header from "@/views/layout/header";
+import routerMixin from "@/mixins/router.mixin";
 
 export default {
+  mixins: [routerMixin],
   components: {
     Header,
   },

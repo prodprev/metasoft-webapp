@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <Header />
-    <main :class="{ change: $route.name == 'list' }">
+    <main>
       <router-view />
     </main>
     <Footer />
@@ -43,13 +43,6 @@ main {
   background: $--background;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-
-  &.change {
-    height: calc(
-      100vh - #{px2rem($--header-height * 2)} - #{px2rem($--footer-height)}
-    );
-    margin-top: px2rem($--header-height * 2);
-  }
 }
 
 footer {
@@ -59,4 +52,30 @@ footer {
   width: 100%;
   z-index: 1;
 }
+
+// .to-left-enter-active,
+// .to-left-leave-active,
+// .to-right-enter-active,
+// .to-right-leave-active {
+//   transition: transform 0.2s;
+// }
+// .to-left-leave-to {
+//   transform: translate3d(-80%, 0, 0);
+// }
+// .to-left-enter {
+//   transform: translate3d(100%, 0, 0);
+// }
+// .to-left-enter-active {
+//   z-index: 10;
+// }
+// .to-left-leave-active {
+//   z-index: 0;
+// }
+// .to-right-leave-active {
+//   transform: translate3d(80%, 0, 0);
+//   z-index: 11;
+// }
+// .to-right-enter {
+//   transform: translate3d(-100%, 0, 0);
+// }
 </style>

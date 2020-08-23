@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     routeAction: "",
+    scrollTop: 0,
     header: {
       dropdownSelect: null,
     },
@@ -23,6 +24,9 @@ export default new Vuex.Store({
   mutations: {
     setRouteAction(state, payload) {
       state.routeAction = payload;
+    },
+    setScrollTop(state, payload) {
+      state.scrollTop = payload;
     },
     setHeaderDropdownSelect(state, payload) {
       state.header.dropdownSelect = payload;

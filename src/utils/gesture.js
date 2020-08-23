@@ -1,4 +1,5 @@
 let startPoint;
+let touchendCallback;
 
 function touchstart(event) {
   let e = event || window.event;
@@ -12,6 +13,8 @@ function touchstart(event) {
 
 function touchend(callback) {
   return function(event) {
+    if (!startPoint) return;
+
     let e = event || window.event;
     let endPoint = e.changedTouches[0];
     let x = endPoint.clientX - startPoint.clientX;
@@ -44,13 +47,15 @@ function touchend(callback) {
 
 export default {
   on: function(callback) {
+    touchendCallback = touchend(callback);
     document.addEventListener("touchstart", touchstart);
     // document.addEventListener("touchmove", touchmove, { passive: false });
-    document.addEventListener("touchend", touchend(callback));
+    document.addEventListener("touchend", touchendCallback);
   },
   off: function() {
+    startPoint = null;
     document.removeEventListener("touchstart", touchstart);
     // document.removeEventListener("touchmove", touchmove, { passive: false });
-    document.removeEventListener("touchend", touchend());
+    document.removeEventListener("touchend", touchendCallback);
   },
 };

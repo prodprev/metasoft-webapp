@@ -108,8 +108,10 @@ import Paragraph from "@/components/Paragraph";
 import FieldGroup from "@/components/FieldGroup";
 import Pic from "@/components/Pic";
 import download from "@/utils/download";
+import routerMixin from "@/mixins/router.mixin";
 
 export default {
+  mixins: [routerMixin],
   components: {
     Header,
     Paragraph,

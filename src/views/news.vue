@@ -3,7 +3,11 @@
 </template>
 
 <script>
-export default {}
+import routerMixin from "@/mixins/router.mixin";
+
+export default {
+  mixins: [routerMixin],
+};
 </script>
 
 <style scoped lang="scss">

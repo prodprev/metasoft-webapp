@@ -5,11 +5,13 @@
         <router-view />
       </keep-alive>
     </transition>
-    <Actionsheet v-if="$store.state.actionsheet.show"
-                 :list="$store.state.actionsheet.list"
-                 :desc="$store.state.actionsheet.desc"
-                 @action="(msg) => $store.commit('setActionsheet', { action: msg })"
-                 @close="$store.commit('setActionsheet', { show: false })" />
+    <Actionsheet
+      v-if="$store.state.actionsheet.show"
+      :list="$store.state.actionsheet.list"
+      :desc="$store.state.actionsheet.desc"
+      @action="(msg) => $store.commit('setActionsheet', { action: msg })"
+      @close="$store.commit('setActionsheet', { show: false })"
+    />
   </div>
 </template>
 
@@ -19,7 +21,7 @@ import debounce from "@/utils/debounce";
 
 export default {
   components: {
-    Actionsheet
+    Actionsheet,
   },
   mounted: function() {
     window.onresize = debounce(function() {

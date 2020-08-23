@@ -37,7 +37,6 @@
 
 <script>
 import Pic from "@/components/Pic";
-import gesture from "@/utils/gesture";
 import routerMixin from "@/mixins/router.mixin";
 
 export default {
@@ -93,40 +92,6 @@ export default {
         { name: "应用名称", image: "" },
       ];
     },
-    ready() {
-      gesture.on((direction) => {
-        switch (direction) {
-          case "to-left":
-            if (this.pageCurrent == this.pageTotal) {
-              window.setTimeout(() => {
-                this.pageCurrent = this.pageTotal;
-              }, 120);
-
-              // this.pageCurrent = this.pageTotal + 0.1; 弹簧效果
-
-              return;
-            }
-
-            this.pageCurrent += 1;
-
-            break;
-          case "to-right":
-            if (this.pageCurrent == 1) {
-              window.setTimeout(() => {
-                this.pageCurrent = 1;
-              }, 120);
-
-              // this.pageCurrent = 0.9; 弹簧效果
-
-              return;
-            }
-
-            this.pageCurrent -= 1;
-
-            break;
-        }
-      });
-    },
     layout() {
       const mainH = document.querySelector("main").clientHeight;
       const contH = document.querySelector(".page-container").clientHeight;
@@ -147,7 +112,7 @@ export default {
       } else if (mainH <= contH + navH) {
         const diffH = contH + navH - mainH + 2;
 
-        const ptVal = diffH / 10;
+        const ptVal = Math.floor(diffH / 10);
 
         document.querySelectorAll(".page-item").forEach((el) => {
           const paddingTop = parseFloat(
@@ -168,12 +133,6 @@ export default {
   },
   created: function() {
     this.init();
-  },
-  mounted: function() {
-    this.ready();
-  },
-  beforeDestroy: function() {
-    gesture.off();
   },
 };
 </script>
