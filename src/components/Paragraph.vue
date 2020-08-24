@@ -61,7 +61,7 @@ h3 {
 .content {
   display: none;
   flex-direction: column;
-  padding: 0 px2rem(30) px2rem(25);
+  padding: px2rem(25) px2rem(30);
 }
 
 .open {

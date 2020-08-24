@@ -4,33 +4,21 @@
       <img :src="require('../assets/images/icon-calendar.svg')" />{{ today }}
     </div>
     <div class="tabs">
-      <span
-        class="tab calendar"
-        :class="{ active: tabActive == 'calendar' }"
-        @click="handleTab('calendar')"
-        >日历</span
-      >
-      <span
-        class="tab workbench"
-        :class="{ active: tabActive == 'workbench' }"
-        @click="handleTab('workbench')"
-        >工作台</span
-      >
+      <span class="tab calendar"
+            :class="{ active: tabActive == 'calendar' }"
+            @click="handleTab('calendar')">日历</span>
+      <span class="tab workbench"
+            :class="{ active: tabActive == 'workbench' }"
+            @click="handleTab('workbench')">工作台</span>
     </div>
-    <div
-      v-if="tabActive == 'calendar'"
-      class="tab-content tab-content-calendar"
-    ></div>
-    <div
-      v-if="tabActive == 'workbench'"
-      class="tab-content tab-content-workbench"
-    >
+    <div v-if="tabActive == 'calendar'"
+         class="tab-content tab-content-calendar"></div>
+    <div v-if="tabActive == 'workbench'"
+         class="tab-content tab-content-workbench">
       <ul>
-        <li
-          :key="index"
-          v-for="(item, index) in list"
-          @click="handleQuota(item)"
-        >
+        <li :key="index"
+            v-for="(item, index) in list"
+            @click="handleQuota(item)">
           <p class="num">
             <i></i><label>{{ number(item.num) }}</label>
           </p>
@@ -38,25 +26,34 @@
         </li>
       </ul>
     </div>
-    <div class="card rbsmt" :class="{ active: rbsmtToggle }">
-      <div class="card-head" @click="rbsmtToggle = !rbsmtToggle">
-        <img class="icon" :src="require('../assets/images/icon-rbsmt.svg')" />
+    <div class="card rbsmt"
+         :class="{ active: cardActive == 'rbsmt' }">
+      <div class="card-head"
+           @click="cardActive = 'rbsmt'">
+        <img class="icon"
+             :src="require('../assets/images/icon-rbsmt.svg')" />
         <label>报销</label>
         <i class="badge">{{ rbsmtBadge }}</i>
-        <img class="arrow" :src="require('../assets/images/icon-arrow.svg')" />
+        <img class="arrow"
+             :src="require('../assets/images/icon-arrow.svg')" />
       </div>
-      <div class="card-body"></div>
+      <!-- <div class="card-body"></div> -->
     </div>
-    <div class="card order" :class="{ active: orderToggle }">
-      <div class="card-head" @click="orderToggle = !orderToggle">
-        <img class="icon" :src="require('../assets/images/icon-order.svg')" />
+    <div class="card order"
+         :class="{ active: cardActive == 'order' }">
+      <div class="card-head"
+           @click="cardActive = 'order'">
+        <img class="icon"
+             :src="require('../assets/images/icon-order.svg')" />
         <label>{{ orderForMonth }}</label>
         <i class="badge">{{ orderBadge }}</i>
-        <img class="arrow" :src="require('../assets/images/icon-arrow.svg')" />
+        <img class="arrow"
+             :src="require('../assets/images/icon-arrow.svg')" />
       </div>
-      <div class="card-body"></div>
+      <!-- <div class="card-body"></div> -->
     </div>
-    <div class="add" @click="wxRouterLinkMixin({ name: 'create' })"></div>
+    <div class="add"
+         @click="wxRouterLinkMixin({ name: 'create' })"></div>
   </div>
 </template>
 
@@ -78,8 +75,7 @@ export default {
         { num: 23900000, name: "标题名" },
         { num: 239000000, name: "标题名" },
       ],
-      rbsmtToggle: false,
-      orderToggle: false,
+      cardActive: "",
       orderForMonth: "7月订单",
       rbsmtBadge: 2,
       orderBadge: 23,
@@ -289,6 +285,8 @@ export default {
   }
 
   &.active {
+    background-color: #e5e5e5;
+
     .card-head .arrow {
       transform: rotate(-180deg);
     }

@@ -1,50 +1,55 @@
 <template>
   <div class="create">
     <Header />
-    <div class="content" ref="createContent">
+    <div class="content"
+         ref="createContent">
       <Paragraph title="基本信息">
-        <FieldGroup :required="true" name="活动主题">
-          <input v-model="topic" placeholder="请输入内容" />
-          <span class="error" v-if="errors['topic']">
+        <FieldGroup :required="true"
+                    name="活动主题">
+          <input v-model="topic"
+                 placeholder="请输入内容" />
+          <span class="error"
+                v-if="errors['topic']">
             {{ errors["topic"] }}
           </span>
         </FieldGroup>
         <FieldGroup name="地点">
-          <textarea placeholder="请输入地点" maxlength="100"></textarea>
+          <textarea placeholder="请输入地点"
+                    maxlength="100"></textarea>
         </FieldGroup>
-        <FieldGroup :required="true" name="性别">
+        <FieldGroup :required="true"
+                    name="性别">
           <div class="field-gender">
-            <div
-              class="gender"
-              :class="{ open: genderToggle }"
-              @click="genderToggle = !genderToggle"
-            >
-              <input v-model="singleSelect.name" disabled />
-              <img
-                class="arrow"
-                :src="require('../assets/images/icon-arrow.svg')"
-              />
+            <div class="gender"
+                 :class="{ open: genderToggle }"
+                 @click="genderToggle = !genderToggle">
+              <input v-model="singleSelect.name"
+                     disabled />
+              <img class="arrow"
+                   :src="require('../assets/images/icon-arrow.svg')" />
             </div>
             <transition name="slide">
-              <Checklist
-                v-if="genderToggle"
-                v-model="singleSelect"
-                :list="checklist"
-                align="right"
-                @change="genderToggle = false"
-              />
+              <Checklist v-if="genderToggle"
+                         v-model="singleSelect"
+                         :list="checklist"
+                         align="right"
+                         @change="genderToggle = false" />
             </transition>
           </div>
         </FieldGroup>
         <FieldGroup name="网址">
-          <input v-model="website" placeholder="请输入网址" />
-          <span class="error" v-if="errors['website']">
+          <input v-model="website"
+                 placeholder="请输入网址" />
+          <span class="error"
+                v-if="errors['website']">
             {{ errors["website"] }}
           </span>
         </FieldGroup>
         <FieldGroup name="电子邮件">
-          <input v-model="email" placeholder="请输入电子邮件" />
-          <span class="error" v-if="errors['email']">
+          <input v-model="email"
+                 placeholder="请输入电子邮件" />
+          <span class="error"
+                v-if="errors['email']">
             {{ errors["email"] }}
           </span>
         </FieldGroup>
@@ -52,169 +57,186 @@
       <Paragraph title="联系人"></Paragraph>
       <Paragraph title="线索">
         <FieldGroup name="电话">
-          <input type="tel" v-model="phone" placeholder="请输入电话号" />
-          <span class="error" v-if="errors['phone']">
+          <input type="tel"
+                 v-model="phone"
+                 placeholder="请输入电话号" />
+          <span class="error"
+                v-if="errors['phone']">
             {{ errors["phone"] }}
           </span>
         </FieldGroup>
         <FieldGroup name="传真">
-          <input v-model="tax" placeholder="请输入传真号" />
-          <span class="error" v-if="errors['tax']">
+          <input v-model="tax"
+                 placeholder="请输入传真号" />
+          <span class="error"
+                v-if="errors['tax']">
             {{ errors["tax"] }}
           </span>
         </FieldGroup>
         <FieldGroup name="QQ">
-          <input v-model="qq" placeholder="请输入QQ号" />
-          <span class="error" v-if="errors['qq']">
+          <input v-model="qq"
+                 placeholder="请输入QQ号" />
+          <span class="error"
+                v-if="errors['qq']">
             {{ errors["qq"] }}
           </span>
         </FieldGroup>
-        <FieldGroup name="地址" :arrow="true">
+        <FieldGroup name="地址"
+                    :arrow="true">
           <div class="field-address">
-            <img
-              class="prev-icon"
-              :src="require('../assets/images/icon-pin.svg')"
-            />
+            <img class="prev-icon"
+                 :src="require('../assets/images/icon-pin.svg')" />
             <input placeholder="请输入地址" />
           </div>
         </FieldGroup>
         <FieldGroup name="客户">
           <div class="field-customer">
             <input placeholder="请选择客户" />
-            <span class="search" @click="handleCustomer">
+            <span class="search"
+                  @click="handleCustomer">
               <img :src="require('../assets/images/icon-search-gray.svg')" />
             </span>
           </div>
         </FieldGroup>
         <FieldGroup name="多选">
           <div class="field-multiple-select">
-            <span class="search" @click="handleMultiSelect">
+            <span class="search"
+                  @click="handleMultiSelect">
               <span>进入选择页面</span>
               <img :src="require('../assets/images/icon-search-gray.svg')" />
             </span>
-            <Checklist
-              class="field-multi-select"
-              v-model="multiSelect"
-              :list="checklist2"
-              align="left"
-              :multi="true"
-            />
+            <Checklist class="field-multi-select"
+                       v-model="multiSelect"
+                       :list="checklist2"
+                       align="left"
+                       :multi="true" />
           </div>
         </FieldGroup>
-        <FieldGroup name="日期" :arrow="true">
+        <FieldGroup name="日期"
+                    :arrow="true">
           <div class="field-date">
-            <img
-              class="prev-icon"
-              :src="require('../assets/images/icon-calendar-gray.svg')"
-            />
-            <input
-              v-model="dateTimeValue"
-              placeholder="请选择日期"
-              readonly
-              @click="handleDateTimeOpen"
-              onfocus="this.blur()"
-            />
+            <img class="prev-icon"
+                 :src="require('../assets/images/icon-calendar-gray.svg')" />
+            <input v-model="dateValue"
+                   placeholder="请选择日期"
+                   readonly
+                   @click="handleDateOpen"
+                   onfocus="this.blur()" />
           </div>
         </FieldGroup>
-        <FieldGroup name="数字" :arrow="true">
-          <input
-            v-model="numberPicked"
-            placeholder="请选择数字"
-            readonly
-            @click="handlePickerOpen"
-            onfocus="this.blur()"
-          />
+        <FieldGroup name="时间"
+                    :arrow="true">
+          <div class="field-date">
+            <img class="prev-icon"
+                 :src="require('../assets/images/icon-calendar-gray.svg')" />
+            <input v-model="dateTimeValue"
+                   placeholder="请选择时间"
+                   readonly
+                   @click="handleDateTimeOpen"
+                   onfocus="this.blur()" />
+          </div>
         </FieldGroup>
-        <FieldGroup name="附件" :arrow="true">
-          <Upload
-            class="field-attachment"
-            :multiple="true"
-            @ready="handlePreview($event, 'file')"
-          >
-            <img
-              class="prev-icon"
-              :src="require('../assets/images/icon-paper-clip.svg')"
-            />
-            <input value="请选择附件" disabled />
+        <FieldGroup name="数字"
+                    :arrow="true">
+          <input v-model="numberPicked"
+                 placeholder="请选择数字"
+                 readonly
+                 @click="handlePickerOpen"
+                 onfocus="this.blur()" />
+        </FieldGroup>
+        <FieldGroup name="附件"
+                    :arrow="true">
+          <Upload class="field-attachment"
+                  :multiple="true"
+                  @ready="handlePreview($event, 'file')">
+            <img class="prev-icon"
+                 :src="require('../assets/images/icon-paper-clip.svg')" />
+            <input value="请选择附件"
+                   disabled />
           </Upload>
         </FieldGroup>
-        <FieldGroup v-if="files.length > 0" name="已选附件">
+        <FieldGroup v-if="files.length > 0"
+                    name="已选附件">
           <ul class="field-file-preview">
-            <li :key="index" v-for="(item, index) in files">
-              <img
-                class="prev-icon"
-                :src="require('../assets/images/icon-paper-clip.svg')"
-              />
+            <li :key="index"
+                v-for="(item, index) in files">
+              <img class="prev-icon"
+                   :src="require('../assets/images/icon-paper-clip.svg')" />
               <label>{{ item.name }}</label>
-              <img
-                class="suffix-icon"
-                :src="require('../assets/images/icon-close.svg')"
-                @click="handleDelete(item, 'file')"
-              />
+              <img class="suffix-icon"
+                   :src="require('../assets/images/icon-close.svg')"
+                   @click="handleDelete(item, 'file')" />
             </li>
           </ul>
         </FieldGroup>
-        <Progress class="field-progress" name="百分比" :percent="percent" />
-        <FieldGroup class="field-image-attachment" name="上传图片">
+        <Progress class="field-progress"
+                  name="百分比"
+                  :percent="percent" />
+        <FieldGroup class="field-image-attachment"
+                    name="上传图片">
           <ul class="field-image-preview">
-            <li :key="index" v-for="(item, index) in images">
-              <div
-                class="inner"
-                @click="handleShowPreviewImage(item.src)"
-                :style="{ backgroundImage: `url(${item.src})` }"
-              >
-                <img
-                  class="delete"
-                  :src="require('../assets/images/icon-delete-image.svg')"
-                  @click.stop="handleDelete(item, 'image')"
-                />
+            <li :key="index"
+                v-for="(item, index) in images">
+              <div class="inner"
+                   @click="handleShowPreviewImage(item.src)"
+                   :style="{ backgroundImage: `url(${item.src})` }">
+                <img class="delete"
+                     :src="require('../assets/images/icon-delete-image.svg')"
+                     @click.stop="handleDelete(item, 'image')" />
               </div>
             </li>
             <li class="ignore">
-              <Upload
-                class="field-image-upload"
-                :image="true"
-                :multiple="true"
-                @ready="handlePreview($event, 'image')"
-              >
+              <Upload class="field-image-upload"
+                      :image="true"
+                      :multiple="true"
+                      @ready="handlePreview($event, 'image')">
                 <div class="uploader">
-                  <img
-                    class="icon"
-                    :src="require('../assets/images/icon-camera.svg')"
-                  />
+                  <img class="icon"
+                       :src="require('../assets/images/icon-camera.svg')" />
                 </div>
               </Upload>
             </li>
           </ul>
         </FieldGroup>
       </Paragraph>
-      <PreviewImage
-        v-if="showPreviewImage"
-        :pre="previewImageUrl"
-        :url="previewImageUrl"
-        @close="showPreviewImage = false"
-      />
-      <mt-datetime-picker
-        type="date"
-        v-model="dateTimeValue"
-        @input="handleDateTime"
-        ref="dateTimePicker"
-      >
+      <PreviewImage v-if="showPreviewImage"
+                    :pre="previewImageUrl"
+                    :url="previewImageUrl"
+                    @close="showPreviewImage = false" />
+      <mt-datetime-picker class="date-picker"
+                          type="date"
+                          v-model="dateValue"
+                          year-format="{value}年"
+                          month-format="{value}月"
+                          date-format="{value}日"
+                          @input="handleDate"
+                          ref="datePicker">
       </mt-datetime-picker>
-      <div
-        v-if="numberVisible"
-        class="picker-container"
-        @click.stop="handlePickerClose"
-      >
+      <mt-datetime-picker class="date-time-picker"
+                          type="datetime"
+                          v-model="dateTimeValue"
+                          year-format="{value}年"
+                          month-format="{value}月"
+                          date-format="{value}日"
+                          hour-format="{value}时"
+                          minute-format="{value}分"
+                          @input="handleDateTime"
+                          ref="dateTimePicker">
+      </mt-datetime-picker>
+      <div v-if="numberVisible"
+           class="picker-container"
+           @click.stop="handlePickerClose">
         <transition name="picker">
-          <div v-if="numberPickable" class="picker-wrapper">
+          <div v-if="numberPickable"
+               class="picker-wrapper">
             <div class="picker-toolbar">
-              <span class="picker-cancel" @click="handlePickerClose">取消</span>
-              <span class="picker-confirm" @click="handlePickerClose"
-                >确定</span
-              >
+              <span class="picker-cancel"
+                    @click="handlePickerClose">取消</span>
+              <span class="picker-confirm"
+                    @click="handlePickerClose">确定</span>
             </div>
-            <mt-picker :slots="numberPickers" @change="handleNumberPick">
+            <mt-picker :slots="numberPickers"
+                       @change="handleNumberPick">
             </mt-picker>
           </div>
         </transition>
@@ -281,6 +303,9 @@ export default {
         { value: "3", name: "多选择内容3" },
         { value: "4", name: "多选择内容4" },
       ],
+      dateTimePicker: false,
+      dateTimePickerVisible: false,
+      dateValue: "",
       dateTimeValue: "",
       numberVisible: false,
       numberPickable: false,
@@ -326,15 +351,25 @@ export default {
     },
   },
   methods: {
-    handleDateTimeOpen() {
-      this.$refs.dateTimePicker.open();
+    handleDateOpen() {
+      this.$refs.datePicker.open();
 
-      fixScroll(document.querySelector(".mint-datetime"), [
+      fixScroll(document.querySelector(".date-picker"), [
         document.querySelector(".picker-items"),
       ]);
     },
+    handleDateTimeOpen() {
+      this.$refs.dateTimePicker.open();
+
+      fixScroll(document.querySelector(".date-time-picker"), [
+        document.querySelector(".picker-items"),
+      ]);
+    },
+    handleDate(val) {
+      this.dateValue = val.format("yyyy-MM-dd");
+    },
     handleDateTime(val) {
-      this.dateTimeValue = val.format("yyyy-MM-dd");
+      this.dateTimeValue = val.format("yyyy-MM-dd hh:mm");
     },
     handlePickerOpen() {
       this.numberVisible = true;

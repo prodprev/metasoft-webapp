@@ -30,3 +30,9 @@
   font-size: px2rem(14);
   color: $--color-dark-200;
 }
+
+@media screen and (max-width: 400px) {
+  .date-time-picker .picker-slot {
+    font-size: px2rem(13);
+  }
+}
